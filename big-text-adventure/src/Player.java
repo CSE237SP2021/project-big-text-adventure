@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Player {
 	
 	// Players should have:
@@ -12,11 +14,24 @@ public class Player {
 	private int playerSTAMINA;
 	private int playerXP;
 	private String playerClass;
-	private String[] playerInventory;
+	// TODO This will probably be an ArrayList of weapons, rather than just strings
+	private ArrayList<String> playerInventory = new ArrayList<String>();
 	
-	
-	
-	
+	public Player(String playerName, int playerLevel, int playerHP, int playerATK, int playerDEF, 
+			int playerMANA, int playerSTAMINA, int playerXP, String playerClass, ArrayList<String> playerInventory) {
+		this.playerName = playerName;
+		this.playerLevel = playerLevel;
+		this.playerHP = playerHP;
+		this.playerATK = playerATK;
+		this.playerDEF = playerDEF;
+		this.playerMANA = playerMANA;
+		this.playerSTAMINA = playerSTAMINA;
+		this.playerXP = playerXP;
+		this.playerClass = playerClass;
+		this.playerInventory = playerInventory;
+	}
+
+
 	// Getters and Setters
 	public String getPlayerName() {
 		return playerName;
@@ -131,14 +146,14 @@ public class Player {
 
 
 
-	public String[] getPlayerInventory() {
+	public ArrayList<String> getPlayerInventory() {
 		return playerInventory;
 	}
 
 
 
 
-	public void setPlayerInventory(String[] playerInventory) {
+	public void setPlayerInventory(ArrayList<String> playerInventory) {
 		this.playerInventory = playerInventory;
 	}
 
