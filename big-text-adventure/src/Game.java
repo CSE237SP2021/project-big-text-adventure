@@ -3,12 +3,29 @@ import java.util.*;
 public class Game {
 	
 	static Scanner userInput = new Scanner(System.in);
+	private static String yourName;
+	private static ArrayList<String> yourInventory;
+	
 	
 	public static void delay(int numSeconds) {
 		try {
 			Thread.sleep(numSeconds * 1000);
 		} catch (InterruptedException e) {
 			// Nothing? Not sure if we need to add something here.
+		}
+	}
+	
+	public static void classCreate(String className) {
+		if (className.equals("Mage")) {
+			// TODO Replace this with weapon/item class.
+			yourInventory.add("Staff of Magic");
+			Player mainPlayer = new Player(yourName, 1, 10, 8, 5, 10, 4, 0, "Mage", yourInventory);
+		} else if (className.equals("Warrior")) {
+			yourInventory.add("Sword of Brutality");
+			Player mainPlayer = new Player(yourName, 1, 20, 5, 10, 4, 5, 0, "Warrior", yourInventory);
+		} else if (className.equals("Assassin")) {
+			yourInventory.add("Dagger of Stealth");
+			Player mainPlayer = new Player(yourName, 1, 5, 13, 1, 6, 10, 0, "Assassin", yourInventory);
 		}
 	}
 	
@@ -22,11 +39,9 @@ public class Game {
 		}
 		return false;
 	}
-
-	public static void main(String[] args) {
-		
+	
+	public static void thePrologue() {
 		// TODO Start the game, ask the player for their name, and create the player
-		// TODO Maybe we should move this to a method or something so this doesn't become unruly.
 		
 		// PROLOGUE
 		System.out.println("============================================================");
@@ -35,8 +50,8 @@ public class Game {
 		System.out.println("Wait no, I think that was a fart from that guy. You cover your nose.");
 		delay(2);
 		System.out.println("The fart culprit turns towards you, 'You think I smell or somethin kid? What's your name?'");
-		System.out.println("(Enter your name below)");
-		String yourName = userInput.nextLine();
+		System.out.println("(Enter your name.)");
+		yourName = userInput.nextLine();
 		System.out.format("So what %s, you think you're funny or somethin?", yourName);
 		delay(2);
 		
@@ -59,7 +74,10 @@ public class Game {
 		System.out.println("Welcome to Big Text Adventure, created by Jeff Su, Ryan Miller, and Jonathan Feehan");
 		System.out.println("This is a text adventure game where you interact, fight, chat, and more all through text. Enjoy!");
 		delay(2);
-
+		
+	}
+	
+	public static void chapterOne() {
 		// CHAPTER 1
 		System.out.println("..");
 		delay(1);
@@ -67,12 +85,52 @@ public class Game {
 		delay(2);
 		System.out.println(".........");
 		delay(3);
+		System.out.println("You wake up in a dark alley.");
+		System.out.println("'I will find you, smelly farter', you whisper under your breath.");
+		System.out.println("Conveniently, before you lay three weapons: a staff of magic, a sword of brutality, and a dagger of stealth.");
+		
+		// Pick up a weapon
+		System.out.println("Pick a weapon. This will decide your class.");
+		System.out.println("A: Pick up the staff of magic (become a mage).");
+		System.out.println("B: Pick up the sword of brutality (become a warrior).");
+		System.out.println("C: Pick up the dagger of stealth (become an assassin).");
+		String weaponChoice = userInput.nextLine();
+		while (!checkResponse(weaponChoice)) {
+			System.out.println("Please enter a valid response by typing A, B, or C.");
+			weaponChoice = userInput.nextLine();
+		}
+		
+		// Create Player based on their choice
+		if (weaponChoice.equalsIgnoreCase("A")) {
+			classCreate("Mage");
+		} else if (weaponChoice.equalsIgnoreCase("B")) {
+			classCreate("Warrior");
+		} else if (weaponChoice.equalsIgnoreCase("C")) {
+			classCreate("Assassin");
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 
 
 		
+		
+		
+	}
 
+	public static void main(String[] args) {
+		
+		thePrologue();
+		chapterOne();
+		
 	}
 
 }
