@@ -11,8 +11,12 @@ There is a lot more detail that can be added relative to each of the classes. Ad
 ### Is there anything that you implemented but doesn't currently work?
 Everything that exists on the main branch should work. There is work being done on separate branches that is not fully developed yet and may not be functional.
 ### What commands are needed to compile and run your code from the command line?
-Navigate to the cloned repo in terminal, and run:
+First we will navigate to the correct space:
 ```
-javac Game.java
+cd project-big-text-adventure/big-text-adventure/src
+```
+and then run:
+```
+java Game
 ```
 
