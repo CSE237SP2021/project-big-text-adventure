@@ -14,7 +14,7 @@ public class Player {
 	private int playerSTAMINA;
 	private int playerXP;
 	private String playerClass;
-	// TODO This will probably be an ArrayList of weapons, rather than just strings
+	// TODO This will probably be an ArrayList of Weapons, rather than just strings
 	private ArrayList<String> playerInventory = new ArrayList<String>();
 	
 	public Player(String playerName, int playerLevel, int playerHP, int playerATK, int playerDEF, 
