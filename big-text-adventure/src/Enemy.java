@@ -13,15 +13,13 @@ public class Enemy {
 	 * @param hp
 	 * @param atk
 	 * @param def
-	 * @param inv
 	 */
-	public Enemy(String name, int level, int hp, int atk, int def, ArrayList<Weapon> inv) {
+	public Enemy(String name, int level, int hp, int atk, int def) {
 		this.name = name;
 		this.level = level;
 		this.hp = hp;
 		this.atk = atk;
 		this.def = def;
-		this.inv = inv;
 	}
 	
 	/**
@@ -62,14 +60,6 @@ public class Enemy {
 	 */
 	public int getDef() {
 		return this.def;
-	}
-
-	/**
-	 * Gets the inventory of the enemy
-	 * @return inventory as ArrayList<Weapon>
-	 */
-	public ArrayList<Weapon> getInv() {
-		return this.inv;
 	}
 	
 	/**
