@@ -1,5 +1,4 @@
-
-
+package main;
 
 public class BasicWeapon implements Weapon {
 
