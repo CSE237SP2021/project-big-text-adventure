@@ -1,11 +1,10 @@
-package tests;
+package Tests;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import BasicWeapon;
-import Weapon;
-
+import main.BasicWeapon;
+import main.Weapon;
 class WeaponInterfaceTest {
 
 	
