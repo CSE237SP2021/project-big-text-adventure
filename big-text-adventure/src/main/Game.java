@@ -5,9 +5,8 @@ public class Game {
 	
 	static Scanner userInput = new Scanner(System.in);
 	private static String yourName;
-	private static ArrayList<String> yourInventory;
+	private static ArrayList<String> yourInventory = new ArrayList<String>();
 	private static Player mainPlayer;
-	
 	
 	public static void delay(int numSeconds) {
 		try {
@@ -19,7 +18,6 @@ public class Game {
 	
 	public static void classCreate(String className) {
 		if (className.equals("Mage")) {
-			// TODO Replace this with weapon/item class.
 			yourInventory.add("Staff of Magic");
 			mainPlayer = new Player(yourName, 1, 10, 8, 5, 10, 4, 0, "Mage", yourInventory);
 		} else if (className.equals("Warrior")) {
@@ -58,7 +56,7 @@ public class Game {
 			System.out.println("Please enter a valid response by typing A or B.");
 			firstChoice = userInput.nextLine();
 		}
-		if (firstChoice == "A") {
+		if (firstChoice.equalsIgnoreCase("A")) {
 			System.out.print("As you walk towards the scene, a man bursts out of the crowd, knocking you to the ground. ");
 		} else {
 			System.out.print("In your rush to get away, you don't notice a man running from the crowd, shoving people out of the way. "
@@ -87,6 +85,7 @@ public class Game {
 		System.out.println("You see his fist come towards you and you wince");
 		System.out.println("but before you can make sense of the pain, everything turns black.");
 		delay(3);
+		System.out.println("-------------------------------------");
 		System.out.println("Welcome to Big Text Adventure, created by Jeff Su, Ryan Miller, and Jonathan Feehan");
 		System.out.println("This is a text adventure game where you interact, fight, chat, and more all through text. Enjoy!");
 		delay(2);
@@ -134,9 +133,11 @@ public class Game {
 			System.out.println("Please enter a valid response by typing A or B.");
 			pathChoice = userInput.nextLine();
 		}
-		if (pathChoice == "A") {
+		
+		if (pathChoice.equalsIgnoreCase("A")) {
 			return true;
 		}
+		
 		return false;
 	}
 	
@@ -148,19 +149,21 @@ public class Game {
 			enemy = new Dragon("Dragon", 10, 100, 150, 50);
 			enemyName = "dragon";
 		} else {
-//			enemy = new 
-//			enemyName = 
+			enemy = new Enemy("Drunken", 10, 100, 150, 50);
+			enemyName = "drunken man";
 		}
 		
 		System.out.println("You follow the street for a ways, until a " + enemyName + " blocks your path. What will you do?");
 		System.out.println("A: Attack.");
 		System.out.println("B: Run.");
 		String enemyChoice = userInput.nextLine();
+
 		while (!checkResponse(enemyChoice)) {
 			System.out.println("Please enter a valid response by typing A or B.");
 			enemyChoice = userInput.nextLine();
 		}
-		if (enemyChoice == "A") {
+		
+		if (enemyChoice.equalsIgnoreCase("A")) {
 			// Handle battle with enemy
 			Battle playerVsEnemy = new Battle(mainPlayer, enemy);
 			playerVsEnemy.startBattle();
@@ -171,10 +174,15 @@ public class Game {
 		}
 	}
 
+	
+	
+
 	public static void main(String[] args) {
 		thePrologue();
 		boolean pathChoice = chapterOne();
+		System.out.println(pathChoice);
 		chapterTwo(pathChoice);
 	}
+	
 
 }
