@@ -44,8 +44,9 @@ public class Battle {
 		
 		// Handle attack - apply damage done to enemy based on stats of both	
 		if (moveChoice.equalsIgnoreCase("A")) {
-			int attackDamage = player.getPlayerATK();
+			int attackDamage = (player.getPlayerATK()) * -1;
 			enemy.changeHp(attackDamage);
+			System.out.println("You dealt " + player.getPlayerATK() + " damage to " + enemy.getName() + "!");
 			System.out.println(enemy.getName() + " has " + enemy.getHp() + " HP left.");
 			System.out.println("You have " + player.getPlayerHP() + " HP left.");
 		}
@@ -56,6 +57,11 @@ public class Battle {
 	
 	public static void enemyTurn() {
 		// Enemy uses one of its attacks
+		int enemyAttackDamage = enemy.getAtk() * -1;
+		player.changeHp(enemyAttackDamage);
+		System.out.println(enemy.getName() + " dealt " + enemy.getAtk() + " damage to you!");
+		System.out.println("You have " + player.getPlayerHP() + " HP left.");
+		System.out.println(enemy.getName() + " has " + enemy.getHp() + " HP left.");
 	}
 	
 	public static void startBattle() {

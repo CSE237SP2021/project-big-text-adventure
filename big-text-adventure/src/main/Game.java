@@ -146,8 +146,8 @@ public class Game {
 		String enemyName = ""; 
 		
 		if (pathChoice) {
-			enemy = new Dragon("Dragon", 10, 100, 150, 50);
-			enemyName = "dragon";
+			enemy = new Enemy("Rabid Dog", 10, 100, 2, 50);
+			enemyName = "rabid dog";
 		} else {
 			enemy = new Enemy("Drunken", 10, 100, 150, 50);
 			enemyName = "drunken man";

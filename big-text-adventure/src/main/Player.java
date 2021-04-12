@@ -60,8 +60,9 @@ public class Player {
 		this.playerHP = playerHP;
 	}
 
-
-
+	public void changeHp(int hpAmount) {
+		this.playerHP += hpAmount;
+	}
 
 	public int getPlayerATK() {
 		return playerATK;
