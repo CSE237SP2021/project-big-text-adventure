@@ -54,21 +54,14 @@ public class Player {
 	}
 
 
-
-
 	public void setPlayerHP(int playerHP) {
 		this.playerHP = playerHP;
 	}
 
-	public void changeHp(int hpAmount) {
-		this.playerHP += hpAmount;
-	}
 
 	public int getPlayerATK() {
 		return playerATK;
 	}
-
-
 
 
 	public void setPlayerATK(int playerATK) {
@@ -76,13 +69,9 @@ public class Player {
 	}
 
 
-
-
 	public int getPlayerDEF() {
 		return playerDEF;
 	}
-
-
 
 
 	public void setPlayerDEF(int playerDEF) {
@@ -90,13 +79,9 @@ public class Player {
 	}
 
 
-
-
 	public int getPlayerMANA() {
 		return playerMANA;
 	}
-
-
 
 
 	public void setPlayerMANA(int playerMANA) {
@@ -104,13 +89,9 @@ public class Player {
 	}
 
 
-
-
 	public int getPlayerSTAMINA() {
 		return playerSTAMINA;
 	}
-
-
 
 
 	public void setPlayerSTAMINA(int playerSTAMINA) {
@@ -118,13 +99,9 @@ public class Player {
 	}
 
 
-
-
 	public int getPlayerXP() {
 		return playerXP;
 	}
-
-
 
 
 	public void setPlayerXP(int playerXP) {
@@ -132,13 +109,9 @@ public class Player {
 	}
 
 
-
-
 	public String getPlayerClass() {
 		return playerClass;
 	}
-
-
 
 
 	public void setPlayerClass(String playerClass) {
@@ -146,13 +119,9 @@ public class Player {
 	}
 
 
-
-
 	public ArrayList<String> getPlayerInventory() {
 		return playerInventory;
 	}
-
-
 
 
 	public void setPlayerInventory(ArrayList<String> playerInventory) {
@@ -160,10 +129,17 @@ public class Player {
 	}
 
 
-
-
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
+	}
+
+
+	public void changeHp(int hpAmount) {
+		this.playerHP += hpAmount;
+	}
+
+	public void gainXP(int xpGained) {
+
 	}
 
 

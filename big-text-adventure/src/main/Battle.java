@@ -18,7 +18,7 @@ public class Battle {
 		this.enemy = enemy;
 	}
 	
-	public static boolean checkResponse(String response) {
+	public boolean checkResponse(String response) {
 		// This checks the response the user gives, and ensures it is within the allowed responses.
 		String[] allowedResponses = {"A", "B", "C"};
 		for (String answer : allowedResponses) {
@@ -28,8 +28,20 @@ public class Battle {
 		}
 		return false;
 	}
-	
-	public static void playerTurn() {
+
+	public boolean criticalHit() {
+		int min = 1;
+		int max = 100;
+		int randomHit = (int)Math.floor(Math.random()*(max - min + 1) + min);
+		if (randomHit == 69) {
+			System.out.println("Nice. Critical Hit!");
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void playerTurn() {
 		// Allow player to choose between basic attack, spell, or item
 		System.out.println("You move first. Will you attack, use a spell, or use an item?");
 		System.out.println("A: Attack");
@@ -45,6 +57,9 @@ public class Battle {
 		// Handle attack - apply damage done to enemy based on stats of both	
 		if (moveChoice.equalsIgnoreCase("A")) {
 			int attackDamage = (player.getPlayerATK()) * -1;
+			if (criticalHit()) {
+				attackDamage = attackDamage * 3;
+			}
 			enemy.changeHp(attackDamage);
 			System.out.println("You dealt " + player.getPlayerATK() + " damage to " + enemy.getName() + "!");
 			System.out.println(enemy.getName() + " has " + enemy.getHp() + " HP left.");
@@ -55,7 +70,7 @@ public class Battle {
 		// Handle item - apply effects of item
 	}
 	
-	public static void enemyTurn() {
+	public void enemyTurn() {
 		// Enemy uses one of its attacks
 		int enemyAttackDamage = enemy.getAtk() * -1;
 		player.changeHp(enemyAttackDamage);
@@ -64,7 +79,8 @@ public class Battle {
 		System.out.println(enemy.getName() + " has " + enemy.getHp() + " HP left.");
 	}
 	
-	public static void startBattle() {
+	public void startBattle() {
+		System.out.println("-----------------------");
 		System.out.println(player.getPlayerName() + " VS. " + enemy.getName());
 		while (player.getPlayerHP() > 0 && enemy.getHp() > 0) {
 			playerTurn();
@@ -81,6 +97,7 @@ public class Battle {
 		} else {
 			System.out.println(enemy.getName() + "wins!");
 		}
+		System.out.println("-----------------------");
 	}
 	
 	public static void main(String[] args) {
