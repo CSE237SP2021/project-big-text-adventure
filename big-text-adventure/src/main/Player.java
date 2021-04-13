@@ -139,7 +139,20 @@ public class Player {
 	}
 
 	public void gainXP(int xpGained) {
+		this.playerXP += xpGained;
+		if (this.getPlayerXP() >= 100) {
+			// Increment all of the player's stats
+			this.setPlayerLevel(this.getPlayerLevel() + 1);
+			this.setPlayerHP(this.getPlayerHP() + 2);
+			this.setPlayerATK(this.getPlayerHP() + 1);
+			this.setPlayerDEF(this.getPlayerDEF() + 1);
+			this.setPlayerMANA(this.getPlayerMANA() + 2);
+			this.setPlayerSTAMINA(this.getPlayerSTAMINA() + 2);
+			System.out.println("You leveled up! You are now level " + this.getPlayerLevel() + "!");
 
+			// Set their XP back to 0
+			this.setPlayerXP(0);
+		}
 	}
 
 
