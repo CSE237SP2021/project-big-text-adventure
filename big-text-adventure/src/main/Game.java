@@ -5,9 +5,8 @@ public class Game {
 	
 	static Scanner userInput = new Scanner(System.in);
 	private static String yourName;
-	private static ArrayList<String> yourInventory;
+	private static ArrayList<String> yourInventory = new ArrayList<String>();
 	private static Player mainPlayer;
-	
 	
 	public static void delay(int numSeconds) {
 		try {
@@ -19,7 +18,6 @@ public class Game {
 	
 	public static void classCreate(String className) {
 		if (className.equals("Mage")) {
-			// TODO Replace this with weapon/item class.
 			yourInventory.add("Staff of Magic");
 			mainPlayer = new Player(yourName, 1, 10, 8, 5, 10, 4, 0, "Mage", yourInventory);
 		} else if (className.equals("Warrior")) {
@@ -43,8 +41,7 @@ public class Game {
 	}
 	
 	public static void thePrologue() {
-		// TODO Start the game, ask the player for their name, and create the player
-		
+		// Start the game, ask the player for their name, and create the player
 		// PROLOGUE
 		System.out.println("============================================================");
 		System.out.println("You feel a warm breeze across your face as you enter the bazaar.");
@@ -58,7 +55,7 @@ public class Game {
 			System.out.println("Please enter a valid response by typing A or B.");
 			firstChoice = userInput.nextLine();
 		}
-		if (firstChoice == "A") {
+		if (firstChoice.equalsIgnoreCase("A")) {
 			System.out.print("As you walk towards the scene, a man bursts out of the crowd, knocking you to the ground. ");
 		} else {
 			System.out.print("In your rush to get away, you don't notice a man running from the crowd, shoving people out of the way. "
@@ -68,11 +65,11 @@ public class Game {
 		System.out.println("Recovering from the collision, the man yells out. \"Get out of my way, kid! What's your name?\"");
 		System.out.println("(Enter your name.)");
 		yourName = userInput.nextLine();
-		System.out.format("So what %s, you think you're funny or somethin?", yourName);
+		System.out.format("So what %s, you think you're funny or somethin'?", yourName);
 		delay(2);
 		
 		// Canned response block, maybe we can simplify this somehow?
-		System.out.println("Choose a response: ");
+		System.out.println(" Choose a response: ");
 		System.out.println("A: Yeah. What are you gonna do about it?");
 		System.out.println("B: Nope. *You continue walking along*");
 		System.out.println("C: Uh. Um. Uh. Yeah? Wait no. No I don't!");
@@ -81,12 +78,20 @@ public class Game {
 			System.out.println("Please enter a valid response by typing A, B, or C.");
 			reply = userInput.nextLine();
 		}
+		if (reply.equalsIgnoreCase("A")) {
+			System.out.println("The man is taken aback. \"What the heck you just say!?\"");
+		} else if (reply.equalsIgnoreCase("B")) {
+			System.out.println("The man scoffs. \"You just gonna keep walkin' like that?\"");
+		} else if (reply.equalsIgnoreCase("C")) {
+			System.out.println("The man keeps following you. \"You must think I'm stupid or somethin'.\"");
+		}
 		
 		delay(2);
-		System.out.println("A deep scowl appears on the man's face, almost as if nothing you said mattered.");
+		System.out.println("Then, a deep scowl appears on the man's face, almost as if nothing you said mattered.");
 		System.out.println("You see his fist come towards you and you wince");
 		System.out.println("but before you can make sense of the pain, everything turns black.");
-		delay(3);
+		delay(4);
+		System.out.println("-------------------------------------");
 		System.out.println("Welcome to Big Text Adventure, created by Jeff Su, Ryan Miller, and Jonathan Feehan");
 		System.out.println("This is a text adventure game where you interact, fight, chat, and more all through text. Enjoy!");
 		delay(2);
@@ -134,9 +139,11 @@ public class Game {
 			System.out.println("Please enter a valid response by typing A or B.");
 			pathChoice = userInput.nextLine();
 		}
-		if (pathChoice == "A") {
+		
+		if (pathChoice.equalsIgnoreCase("A")) {
 			return true;
 		}
+		
 		return false;
 	}
 	
@@ -145,36 +152,45 @@ public class Game {
 		String enemyName = ""; 
 		
 		if (pathChoice) {
-			enemy = new Dragon("Dragon", 10, 100, 150, 50);
-			enemyName = "dragon";
+			enemy = new Enemy("Rabid Dog", 1, 8, 2, 50);
+			enemyName = "rabid dog";
 		} else {
-//			enemy = new 
-//			enemyName = 
+			enemy = new Enemy("Drunken", 1, 8, 2, 50);
+			enemyName = "drunken man";
 		}
 		
 		System.out.println("You follow the street for a ways, until a " + enemyName + " blocks your path. What will you do?");
 		System.out.println("A: Attack.");
 		System.out.println("B: Run.");
 		String enemyChoice = userInput.nextLine();
+
 		while (!checkResponse(enemyChoice)) {
 			System.out.println("Please enter a valid response by typing A or B.");
 			enemyChoice = userInput.nextLine();
 		}
-		if (enemyChoice == "A") {
+		
+		if (enemyChoice.equalsIgnoreCase("A")) {
 			// Handle battle with enemy
 			Battle playerVsEnemy = new Battle(mainPlayer, enemy);
 			playerVsEnemy.startBattle();
-//			System.out.println("")
+			System.out.println("Phew, that was close!");
+			delay(2);
+			System.out.println("You walk for a few blocks before you stop to get a drink in a bar.");
 		} else {
 			System.out.println("You duck into a nearby alley and flee from the enemy. "
-					+ "In your haste, you become lost and find yourself in ___");
+					+ "In your haste, you become lost and find yourself in 'Ye Olde Drinking Place', a bar?");
 		}
 	}
+
+	
+	
 
 	public static void main(String[] args) {
 		thePrologue();
 		boolean pathChoice = chapterOne();
+		System.out.println(pathChoice);
 		chapterTwo(pathChoice);
 	}
+	
 
 }
