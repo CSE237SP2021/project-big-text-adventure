@@ -29,6 +29,18 @@ public class Game {
 		}
 	}
 	
+	public static Player getMainPlayer() {
+		return mainPlayer;
+	}
+	
+	public static ArrayList<String> getPlayerInventory() {
+		return yourInventory;
+	}
+	
+	public static String getPlayerName() {
+		return yourName;
+	}
+	
 	public static boolean checkResponse(String response) {
 		// This checks the response the user gives, and ensures it is within the allowed responses.
 		String[] allowedResponses = {"A", "B", "C"};
