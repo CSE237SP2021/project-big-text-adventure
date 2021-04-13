@@ -1,4 +1,4 @@
 #!/bin/bash
 
-javac src/main/Game.java
+javac src/main/*.java
 java Game
