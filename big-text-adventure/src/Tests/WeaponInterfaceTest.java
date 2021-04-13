@@ -1,7 +1,10 @@
+package Tests;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import main.BasicWeapon;
+import main.Weapon;
 class WeaponInterfaceTest {
 
 	
@@ -19,7 +22,6 @@ class WeaponInterfaceTest {
 				() -> assertEquals(40, weaponList[1].getDamage()),
 				() -> assertEquals(30,weaponList[2].getDamage()));
 	}
-	
 	
 	
 	/*

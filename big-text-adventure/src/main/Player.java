@@ -1,3 +1,4 @@
+package main;
 import java.util.*;
 
 public class Player {
@@ -53,13 +54,9 @@ public class Player {
 	}
 
 
-
-
 	public void setPlayerHP(int playerHP) {
 		this.playerHP = playerHP;
 	}
-
-
 
 
 	public int getPlayerATK() {
@@ -67,13 +64,9 @@ public class Player {
 	}
 
 
-
-
 	public void setPlayerATK(int playerATK) {
 		this.playerATK = playerATK;
 	}
-
-
 
 
 	public int getPlayerDEF() {
@@ -81,13 +74,9 @@ public class Player {
 	}
 
 
-
-
 	public void setPlayerDEF(int playerDEF) {
 		this.playerDEF = playerDEF;
 	}
-
-
 
 
 	public int getPlayerMANA() {
@@ -95,13 +84,9 @@ public class Player {
 	}
 
 
-
-
 	public void setPlayerMANA(int playerMANA) {
 		this.playerMANA = playerMANA;
 	}
-
-
 
 
 	public int getPlayerSTAMINA() {
@@ -109,13 +94,9 @@ public class Player {
 	}
 
 
-
-
 	public void setPlayerSTAMINA(int playerSTAMINA) {
 		this.playerSTAMINA = playerSTAMINA;
 	}
-
-
 
 
 	public int getPlayerXP() {
@@ -123,13 +104,9 @@ public class Player {
 	}
 
 
-
-
 	public void setPlayerXP(int playerXP) {
 		this.playerXP = playerXP;
 	}
-
-
 
 
 	public String getPlayerClass() {
@@ -137,13 +114,9 @@ public class Player {
 	}
 
 
-
-
 	public void setPlayerClass(String playerClass) {
 		this.playerClass = playerClass;
 	}
-
-
 
 
 	public ArrayList<String> getPlayerInventory() {
@@ -151,17 +124,35 @@ public class Player {
 	}
 
 
-
-
 	public void setPlayerInventory(ArrayList<String> playerInventory) {
 		this.playerInventory = playerInventory;
 	}
 
 
-
-
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
+	}
+
+
+	public void changeHp(int hpAmount) {
+		this.playerHP += hpAmount;
+	}
+
+	public void gainXP(int xpGained) {
+		this.playerXP += xpGained;
+		if (this.getPlayerXP() >= 100) {
+			// Increment all of the player's stats
+			this.setPlayerLevel(this.getPlayerLevel() + 1);
+			this.setPlayerHP(this.getPlayerHP() + 2);
+			this.setPlayerATK(this.getPlayerHP() + 1);
+			this.setPlayerDEF(this.getPlayerDEF() + 1);
+			this.setPlayerMANA(this.getPlayerMANA() + 2);
+			this.setPlayerSTAMINA(this.getPlayerSTAMINA() + 2);
+			System.out.println("You leveled up! You are now level " + this.getPlayerLevel() + "!");
+
+			// Set their XP back to 0
+			this.setPlayerXP(0);
+		}
 	}
 
 
