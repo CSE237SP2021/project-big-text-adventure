@@ -37,7 +37,7 @@ public interface Weapon {
 	 * @param  damage The new attack of the weapon
 	 * @return 0
 	 */
-	int setDamge(int damage);
+	int setDamage(int damage);
 	
 	/**
 	 * Updates the defense value of the weapon
