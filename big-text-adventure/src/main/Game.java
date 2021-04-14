@@ -192,6 +192,22 @@ public class Game {
 			System.out.println("You duck into a nearby alley and flee from the enemy. "
 					+ "In your haste, you become lost and find yourself in 'Ye Olde Drinking Place', a bar?");
 		}
+
+		System.out.println("As you walk in the bar, you overhear a couple of locals talking...");
+		delay(2);
+		System.out.println("\"So there I was the other week and this guy comes up to me in the bazaar and get this...\"");
+		delay(3);
+		System.out.println("\"And then BAM, he just socks me right in 'a face! What was that?\"");
+		delay(2);
+		System.out.println("\"Ey! Same thing happened to me the other day while I was shoppin' for some meat!\"");
+		delay(1);
+		System.out.println("\"Woah no way, some dude really gave me a headache at the same place!\"");
+		delay(2);
+		System.out.println("You begin to realize that they're talking about the same man who punched you.");
+
+		// Allow choices, A: continue conversation, B: ask question, C: pass by 
+
+
 	}
 
 	
