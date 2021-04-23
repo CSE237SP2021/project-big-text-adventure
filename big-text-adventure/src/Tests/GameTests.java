@@ -1,4 +1,4 @@
-package tests;
+package Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,7 +10,7 @@ class GameTests {
 	
 		@Test
 		void testCheckResponses() {
-			assertAll ("Testing Response Chekcer",
+			assertAll ("Testing Response Checker",
 					() -> assertEquals(true, main.Game.checkResponse("A")),
 					() -> assertEquals(true, main.Game.checkResponse("a")),
 					() -> assertEquals(true, main.Game.checkResponse("B")),
@@ -37,7 +37,6 @@ class GameTests {
 		}
 		@Test
 		void testCreateWarrior() {
-			
 			Game.classCreate("Warrior");
 			assertAll ("Testing attributes of Warrior", 
 					() -> assertEquals(1, Game.getMainPlayer().getPlayerLevel()),
@@ -50,7 +49,6 @@ class GameTests {
 		}
 		@Test
 		void testCreateAssassin() {
-			
 			Game.classCreate("Assassin");
 			assertAll ("Testing attributes of Warrior", 
 					() -> assertEquals(1, Game.getMainPlayer().getPlayerLevel()),
