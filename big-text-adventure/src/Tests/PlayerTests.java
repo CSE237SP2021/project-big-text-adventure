@@ -12,7 +12,7 @@ class PlayerTests {
 
 	@Test
 	void testPlayerHasRequiredAttributes() {
-		Player Bill = new Player( "PlayerName", 1, 5, 2, 3, 1, 5, 0, "Warrior", new ArrayList<String>());
+		Player Bill = new Player( "PlayerName", 1, 5, 2, 3, 1, 5, 0, "Warrior");
 		
 		assertAll ("Player Attributes",
 				() -> assertEquals(1, Bill.getPlayerLevel()),
@@ -27,7 +27,7 @@ class PlayerTests {
 		
 	@Test
 	void testPlayerAttributesUpdate() {
-		Player Bill = new Player( "PlayerName", 1, 5, 2, 3, 1, 5, 0, "Warrior", new ArrayList<String>());
+		Player Bill = new Player( "PlayerName", 1, 5, 2, 3, 1, 5, 0, "Warrior");
 		Bill.setPlayerLevel(2);
 		Bill.setPlayerATK(5);
 		Bill.setPlayerDEF(6);
