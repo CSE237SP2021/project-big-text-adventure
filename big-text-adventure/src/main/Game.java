@@ -5,38 +5,35 @@ public class Game {
 	
 	Scanner userInput = new Scanner(System.in);
 	private String yourName;
-	private ArrayList<String> yourInventory = new ArrayList<String>();
 	private Player mainPlayer;
 	
 	public void delay(int numSeconds) {
 		try {
 			Thread.sleep(numSeconds * 1000);
 		} catch (InterruptedException e) {
-			// Nothing? Not sure if we need to add something here.
 		}
 	}
 	
 	public void classCreate(String className) {
 		if (className.equals("Mage")) {
-			yourInventory.add("Staff of Magic");
-			mainPlayer = new Player(yourName, 1, 10, 8, 5, 10, 4, 0, "Mage", yourInventory);
+			Weapon staff = new BasicWeapon("Staff of Magic", 10, 15, 15, 0);
+			mainPlayer = new Player(yourName, 1, 10, 8, 5, 10, 4, 0, "Mage");
+			mainPlayer.addToInventory(staff);
 		} else if (className.equals("Warrior")) {
-			yourInventory.add("Sword of Brutality");
-			mainPlayer = new Player(yourName, 1, 20, 5, 10, 4, 5, 0, "Warrior", yourInventory);
+			Weapon sword = new BasicWeapon("Sword of Brutality", 15, 10, 15, 1);
+			mainPlayer = new Player(yourName, 1, 20, 5, 10, 4, 5, 0, "Warrior");
+			mainPlayer.addToInventory(sword);
 		} else if (className.equals("Assassin")) {
-			yourInventory.add("Dagger of Stealth");
-			mainPlayer = new Player(yourName, 1, 5, 13, 1, 6, 10, 0, "Assassin", yourInventory);
+			Weapon dagger = new BasicWeapon("Dagger of Stealth", 15, 10, 15, 1);
+			mainPlayer = new Player(yourName, 1, 5, 13, 1, 6, 10, 0, "Assassin");
+			mainPlayer.addToInventory(dagger);
 		}
 	}
 	
 	public Player getMainPlayer() {
 		return mainPlayer;
 	}
-	
-	public ArrayList<String> getPlayerInventory() {
-		return yourInventory;
-	}
-	
+		
 	public String getPlayerName() {
 		return yourName;
 	}
