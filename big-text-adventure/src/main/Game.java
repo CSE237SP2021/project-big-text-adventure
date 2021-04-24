@@ -3,12 +3,12 @@ import java.util.*;
 
 public class Game {
 	
-	static Scanner userInput = new Scanner(System.in);
-	private static String yourName;
-	private static ArrayList<String> yourInventory = new ArrayList<String>();
-	private static Player mainPlayer;
+	Scanner userInput = new Scanner(System.in);
+	private String yourName;
+	private ArrayList<String> yourInventory = new ArrayList<String>();
+	private Player mainPlayer;
 	
-	public static void delay(int numSeconds) {
+	public void delay(int numSeconds) {
 		try {
 			Thread.sleep(numSeconds * 1000);
 		} catch (InterruptedException e) {
@@ -16,7 +16,7 @@ public class Game {
 		}
 	}
 	
-	public static void classCreate(String className) {
+	public void classCreate(String className) {
 		if (className.equals("Mage")) {
 			yourInventory.add("Staff of Magic");
 			mainPlayer = new Player(yourName, 1, 10, 8, 5, 10, 4, 0, "Mage", yourInventory);
@@ -29,7 +29,19 @@ public class Game {
 		}
 	}
 	
-	public static boolean checkResponse(String response) {
+	public Player getMainPlayer() {
+		return mainPlayer;
+	}
+	
+	public ArrayList<String> getPlayerInventory() {
+		return yourInventory;
+	}
+	
+	public String getPlayerName() {
+		return yourName;
+	}
+	
+	public boolean checkResponse(String response) {
 		// This checks the response the user gives, and ensures it is within the allowed responses.
 		String[] allowedResponses = {"A", "B", "C"};
 		for (String answer : allowedResponses) {
@@ -40,7 +52,7 @@ public class Game {
 		return false;
 	}
 	
-	public static void thePrologue() {
+	public void thePrologue() {
 		// Start the game, ask the player for their name, and create the player
 		// PROLOGUE
 		System.out.println("============================================================");
@@ -98,7 +110,7 @@ public class Game {
 		
 	}
 	
-	public static boolean chapterOne() {
+	public boolean chapterOne() {
 		// CHAPTER 1
 		System.out.println("..");
 		delay(1);
@@ -147,7 +159,7 @@ public class Game {
 		return false;
 	}
 	
-	public static void chapterTwo(boolean pathChoice) {
+	public void chapterTwo(boolean pathChoice) {
 		Enemy enemy = null;
 		String enemyName = ""; 
 		
@@ -180,12 +192,28 @@ public class Game {
 			System.out.println("You duck into a nearby alley and flee from the enemy. "
 					+ "In your haste, you become lost and find yourself in 'Ye Olde Drinking Place', a bar?");
 		}
+
+		System.out.println("As you walk in the bar, you overhear a couple of locals talking...");
+		delay(2);
+		System.out.println("\"So there I was the other week and this guy comes up to me in the bazaar and get this...\"");
+		delay(3);
+		System.out.println("\"And then BAM, he just socks me right in 'a face! What was that?\"");
+		delay(2);
+		System.out.println("\"Ey! Same thing happened to me the other day while I was shoppin' for some meat!\"");
+		delay(1);
+		System.out.println("\"Woah no way, some dude really gave me a headache at the same place!\"");
+		delay(2);
+		System.out.println("You begin to realize that they're talking about the same man who punched you.");
+
+		// Allow choices, A: continue conversation, B: ask question, C: pass by 
+
+
 	}
 
 	
 	
 
-	public static void main(String[] args) {
+	public void play() {
 		thePrologue();
 		boolean pathChoice = chapterOne();
 		System.out.println(pathChoice);

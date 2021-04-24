@@ -25,8 +25,7 @@ public class BasicWeapon implements Weapon {
 		this.defense = defense;
 		this.value = value;
 		this.weaponClass = weaponClass;
-		
-		
+
 	}
 	
 	/**
@@ -81,7 +80,7 @@ public class BasicWeapon implements Weapon {
 	 * @param  damage The new attack of the weapon
 	 * @return 0
 	 */
-	public int setDamge(int damage) {
+	public int setDamage(int damage) {
 		this.damage = damage;
 		return 0;
 	}

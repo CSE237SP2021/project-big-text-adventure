@@ -94,6 +94,7 @@ public class Battle {
 	public static void endBattle() {
 		if (player.getPlayerHP() > 0) {
 			System.out.println(player.getPlayerName() + " wins!");
+			player.gainXP(80);
 		} else {
 			System.out.println(enemy.getName() + "wins!");
 		}
