@@ -1,13 +1,12 @@
-package tests;
+package Tests;
+
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
-
 import main.BasicWeapon;
 import main.Weapon;
+
 class WeaponInterfaceTest {
 
-	
 	/*
 	 * Shows that weapon getters work
 	 */

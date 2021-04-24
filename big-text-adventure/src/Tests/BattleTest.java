@@ -1,11 +1,8 @@
 package Tests;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import main.Enemy;
-import main.Player;
+import main.*;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 
 class BattleTest {
@@ -17,7 +14,7 @@ class BattleTest {
 		Battle testBattle = new Battle(Bill, Evil);
 		assertAll("Testing a basic battle",
 				() -> assertEquals(true, testBattle.startBattle())
-				)
+				);
 	}
 
 	@Test
@@ -49,8 +46,5 @@ class BattleTest {
 	void testEndBattle() {
 		fail("Not yet implemented");
 	}
-
-
-
 
 }
