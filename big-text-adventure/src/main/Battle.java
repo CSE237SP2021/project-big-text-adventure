@@ -74,14 +74,7 @@ public class Battle {
 		
 		// Handle attack - apply damage done to enemy based on stats of both	
 		if (moveChoice.equalsIgnoreCase("A")) {
-			int attackDamage = (player.getPlayerATK()) * -1;
-			if (criticalHit()) {
-				attackDamage = attackDamage * 3;
-			}
-			enemy.changeHp(attackDamage);
-			System.out.println("You dealt " + player.getPlayerATK() + " damage to " + enemy.getName() + "!");
-			System.out.println("Enemy " + enemy.getName() + " has " + enemy.getHp() + " HP left.");
-			System.out.println("You have " + player.getPlayerHP() + " HP left.");
+			playerAttack();
 		}
 		
 		// Handle item - apply effects of item
@@ -114,6 +107,28 @@ public class Battle {
 			// D is run
 			run();
 		}
+	}
+
+	/**
+	 * Player uses an item against an enemy
+	 */
+	// TODO: Transfer the code from playerTurn into useItem
+	public void useItem() {
+
+	}
+
+	/**
+	 * Player uses attack against an enemy
+	 */
+	public void playerAttack() {
+		int attackDamage = (player.getPlayerATK() * -1);
+		if (criticalHit()) {
+			attackDamage = attackDamage * 3;
+		}
+		enemy.changeHp(attackDamage);
+		System.out.println("You dealt " + player.getPlayerATK() + " damage to " + enemy.getName() + "!");
+		System.out.println("Enemy " + enemy.getName() + " has " + enemy.getHp() + " HP left.");
+		System.out.println("You have " + player.getPlayerHP() + " HP left.");
 	}
 	
 	/**
