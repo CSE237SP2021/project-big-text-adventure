@@ -79,18 +79,7 @@ public class Battle {
 		
 		// Handle item - apply effects of item
 		if (moveChoice.equalsIgnoreCase("B")) {
-			for (Weapon item : player.getPlayerInventory()) {
-				// TODO: Handle other types of weapons as they're added
-				int itemDamage = (item.getDamage()) * -1;
-				if (criticalHit()) {
-					itemDamage = itemDamage * 3;
-				}
-				enemy.changeHp(itemDamage);
-				System.out.println("You dealt " + player.getPlayerATK() + " damage to " + enemy.getName() + 
-								   " with " + item.getName() + "!");
-				System.out.println("Enemy " + enemy.getName() + " has " + enemy.getHp() + " HP left.");
-				System.out.println("You have " + player.getPlayerHP() + " HP left.");
-			}
+			useItem();
 		}
 
 		// Handle spell or run - apply damage done to enemy based on stats of both and spell
@@ -112,9 +101,39 @@ public class Battle {
 	/**
 	 * Player uses an item against an enemy
 	 */
-	// TODO: Transfer the code from playerTurn into useItem
 	public void useItem() {
-
+		System.out.println("Which item?:");
+		char choice = 'A';
+		for (Weapon item : player.getPlayerInventory()) {
+			System.out.println(choice + ": " + item.getName());
+			choice++;			
+		}
+		System.out.println(choice + ": Back");
+		String moveChoice = userInput.nextLine();
+		while (checkResponse(moveChoice) == false) {
+			System.out.println("Please enter a valid response");
+			moveChoice = userInput.nextLine();
+		}
+		char potentialChoice = 'A';
+		// Check input against all items, apply damage if item is chosen
+		for (Weapon item : player.getPlayerInventory()) {
+			if (moveChoice.equalsIgnoreCase(String.valueOf(potentialChoice))) {
+				int itemDamage = item.getDamage() * -1;
+				if (criticalHit()) {
+					itemDamage = itemDamage * 3;
+				}
+				enemy.changeHp(itemDamage);
+				System.out.println("You dealt " + player.getPlayerATK() + " damage to " + enemy.getName() + 
+						   " with " + item.getName() + "!");
+				System.out.println("Enemy " + enemy.getName() + " has " + enemy.getHp() + " HP left.");
+				System.out.println("You have " + player.getPlayerHP() + " HP left.");
+			}
+			potentialChoice++;
+		}
+		// Return to playerTurn if user chooses to go back
+		if (moveChoice.equalsIgnoreCase(String.valueOf(choice))) {
+			playerTurn();
+		}
 	}
 
 	/**
@@ -133,14 +152,17 @@ public class Battle {
 	
 	/**
 	 * Player attempts to run - successful if player's level is higher than enemy's level
+	 * 
+	 * @return true if successful, false otherwise
 	 */
-	public void run() {
+	public boolean run() {
 		if (player.getPlayerLevel() > enemy.getLevel()) {
 			System.out.println("You escaped from enemy " + enemy.getName() + "!");
 			endBattle();
-		} else {
-			System.out.println("You couldn't get away!");
+			return true;
 		}
+		System.out.println("You couldn't get away!");
+		return false;
 	}
 	
 	/**
