@@ -14,16 +14,16 @@ class TextFileImplementationTest {
 	void testDelimiterFunction() {
 		Game testGame = new Game();
 		Scanner testFile = null;
-		int line_counter = 0;
+		int line_counter = 1;
 		int array_index_counter = 0;
 		int [] correct_line_numbers = new int [] {3,5,7,8,10,13,16,17,19,22};
 		try {
-			testFile = new Scanner(Game.class.getResourceAsStream("./testFile.txt"));
+			testFile = new Scanner(Game.class.getResourceAsStream("./../Tests/testFile.txt"));
 		} catch (Exception E) {
 			System.err.println("Could not open file");
 		}
 		while (testFile.hasNext()) {
-			String line = testFile.next();
+			String line = testFile.nextLine();
 			if (testGame.checkForDelimiter(line)) {
 				assert (line_counter == correct_line_numbers[array_index_counter]);
 				array_index_counter++;
@@ -44,9 +44,9 @@ class TextFileImplementationTest {
 		int [] answers = new int[] {2,4,3,1};
 		
 		try {
-			testFile_various = new Scanner(Game.class.getResourceAsStream("./testFile_various.txt"));
+			testFile_various = new Scanner(Game.class.getResourceAsStream("./../Tests/testFile_various.txt"));
 		} catch (Exception E) {
-			System.err.println("Could not open file");
+			System.err.println(E);
 		}
 		
 		while(testFile_various.hasNext()) {
@@ -57,7 +57,7 @@ class TextFileImplementationTest {
 					path_counter++;
 				}
 				if (line.equals("\\name\\")) {
-					
+					name_counter++;
 				}
 				if (line.equals("\\battle\\")) {
 					battle_counter++;
@@ -68,10 +68,10 @@ class TextFileImplementationTest {
 				
 			}
 		}
-		assertEquals(path_counter, answers[0]);
-		assertEquals(name_counter, answers[1]);
-		assertEquals(battle_counter, answers[2]);
-		assertEquals(enemyName_counter, answers[3]);
+		assertEquals(answers[0], path_counter );
+		assertEquals(answers[1], name_counter );
+		assertEquals(answers[2], battle_counter );
+		assertEquals(answers[3], enemyName_counter);
 		
 	}
 

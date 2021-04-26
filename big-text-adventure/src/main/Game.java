@@ -52,77 +52,89 @@ public class Game {
 	
 	public boolean checkForDelimiter(String line) {
 		if (line.equals("\\stop\\")) {
-			return true;
-		}
-		return false;
-	}
-	
-	public void thePrologue() {
-//		 Start the game, ask the player for their name, and create the player
-//		 PROLOGUE
-		
-		try {
-			this.fileInput =new Scanner (Game.class.getResourceAsStream("./prologue.txt"));	
-		} catch (Exception e) {
-			System.err.println("Cannot open text file");
-		}
+			line = fileInput.nextLine();
+			if (line.equals("\\path\\")) {
+				goDownPath();
+			}
+			if (line.equals("\\name\\")) {
+				this.yourName = userInput.nextLine();
+			}
+			if (line.equals("\\battle\\")) {
+				String enemyName = fileInput.next();
+				int level = fileInput.nextInt();
+				int hp = fileInput.nextInt();
+				int attack = fileInput.nextInt();
+				int def = fileInput.nextInt();
+				Enemy enemy = new Enemy(enemyName, hp, level, attack, def);
+				Battle playerVsEnemy = new Battle(mainPlayer, enemy);
+				playerVsEnemy.startBattle();
+			}
+			//TODO Address Formatted lines
 			
-		while(this.fileInput.hasNext()) {
-			char path = 0;
-			String line = this.fileInput.nextLine();
-
-			if (checkForDelimiter(line)) {
-				line = fileInput.nextLine();
-
-				if (line.equals("\\path\\")) {
-					String firstChoice = userInput.nextLine();
-					while (checkResponse(firstChoice) == false) {
-						System.out.println("Please enter a valid response.");
-						firstChoice = userInput.nextLine();
-					}
-					if (firstChoice.equalsIgnoreCase("A")) {
-						path = '1';
-					}
-					else if (firstChoice.equalsIgnoreCase("B")) {
-						path = '2';
-					}
-					else if (firstChoice.equalsIgnoreCase("C")) {
-						path = '3';
-					}
-					String tempDelimiter = "\\path_" + path + "\\";
-					while (!line.equals("\\path_converge\\")) {
-						if (line.equals(tempDelimiter)) {
-							line = fileInput.nextLine();
-							while (!line.equals("\\end_path\\")) {
-								delay(2);
-								System.out.println(line);
-								line = fileInput.nextLine();
-							}
-							line=fileInput.nextLine();
-						}
-						else {
-							line = fileInput.nextLine();
-						}
-					}
-					
-				}
-				if (line.equals("\\name\\")) {
-					this.yourName = userInput.nextLine();
-				}
-				if (line.equals("\\format_line\\")) {
-					line = fileInput.next();
+			if (line.equals("\\format_line\\")) {
+				line = fileInput.next();
+				if (line.equals("\\format_1\\")) {
 					System.out.format("So what %s, you think you're funny or somethin'?", yourName);
 				}
 			}
-			else {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	
+	public void readStoryFile(String filePath) {
+		try {
+			this.fileInput =new Scanner (Game.class.getResourceAsStream(filePath));	
+		}catch (Exception e) {
+			System.err.println("Cannot open text file");
+		}
+		while(this.fileInput.hasNext()) {
+			String line = this.fileInput.nextLine();
+			if (!checkForDelimiter(line)) {
 				delay(1);
 				System.out.println(line);
 			}
 		}
-		
-		
-
 	}
+	
+	public void goDownPath() {
+		char path = 0;
+		String line = this.fileInput.nextLine();
+		String firstChoice = userInput.nextLine();
+		while (checkResponse(firstChoice) == false) {
+			System.out.println("Please enter a valid response.");
+			firstChoice = userInput.nextLine();
+		}
+		if (firstChoice.equalsIgnoreCase("A")) {
+			path = '1';
+		}
+		else if (firstChoice.equalsIgnoreCase("B")) {
+			path = '2';
+		}
+		else if (firstChoice.equalsIgnoreCase("C")) {
+			path = '3';
+		}
+		String tempDelimiter = "\\path_" + path + "\\";
+		while (!line.equals("\\path_converge\\")) {
+			if (line.equals(tempDelimiter)) {
+				line = fileInput.nextLine();
+				checkForDelimiter(line);
+				while (!line.equals("\\end_path\\")) {
+					delay(2);
+					System.out.println(line);
+					line = fileInput.nextLine();
+				}
+				line=fileInput.nextLine();
+			}
+			else {
+				line = fileInput.nextLine();
+			}
+		}
+	}
+	
 	
 	public boolean chapterOne() {
 		// CHAPTER 1
@@ -228,7 +240,7 @@ public class Game {
 	
 
 	public void play() {
-		thePrologue();
+		readStoryFile("./prologue.txt");
 		boolean pathChoice = chapterOne();
 		System.out.println(pathChoice);
 		chapterTwo(pathChoice);

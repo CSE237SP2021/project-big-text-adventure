@@ -19,6 +19,7 @@ Recovering from the collision, the man yells out. "Get out of my way, kid! What'
 \name\
 \stop\
 \format_line\
+\format_1\
  Choose a response: 
 A: Yeah. What are you gonna do about it?
 B: Nope. *You continue walking along*
