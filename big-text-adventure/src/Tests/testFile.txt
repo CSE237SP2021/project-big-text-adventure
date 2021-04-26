@@ -1,0 +1,23 @@
+hello       1
+hello       2
+\stop\
+hello       4
+\stop\
+\sto p      6
+\stop\
+\stop\
+stop        9
+\stop\
+\sto p\     11
+\break\     12
+\stop\
+this        14
+  shouldnt  15
+stop        16
+\stop\
+\stop\
+the text    18
+\stop\
+well        20
+i guess it worked
+\stop\

@@ -4,6 +4,7 @@ import java.util.*;
 public class Game {
 	
 	Scanner userInput = new Scanner(System.in);
+	Scanner fileInput;
 	private String yourName;
 	private Player mainPlayer;
 	
@@ -49,62 +50,78 @@ public class Game {
 		return false;
 	}
 	
+	public boolean checkForDelimiter(String line) {
+		if (line.equals("\\stop\\")) {
+			return true;
+		}
+		return false;
+	}
+	
 	public void thePrologue() {
-		// Start the game, ask the player for their name, and create the player
-		// PROLOGUE
-		System.out.println("============================================================");
-		System.out.println("You feel a warm breeze across your face as you enter the bazaar.");
-		delay(3);
-		System.out.println("Looking around the market, you notice a commotion around a nearby stall. Onlookers shout that there's a thief escaping with stolen merchandise. What will you do?");
-		delay(2);
-		System.out.println("A: Head towards the commotion.");
-		System.out.println("B: Head in the opposite direction. ");
-		String firstChoice = userInput.nextLine();
-		while (checkResponse(firstChoice) == false) {
-			System.out.println("Please enter a valid response by typing A or B.");
-			firstChoice = userInput.nextLine();
-		}
-		if (firstChoice.equalsIgnoreCase("A")) {
-			System.out.print("As you walk towards the scene, a man bursts out of the crowd, knocking you to the ground. ");
-		} else {
-			System.out.print("In your rush to get away, you don't notice a man running from the crowd, shoving people out of the way. "
-					+ "You're knocked to the ground. ");
-		}
-		delay(1);
-		System.out.println("Recovering from the collision, the man yells out. \"Get out of my way, kid! What's your name?\"");
-		System.out.println("(Enter your name.)");
-		yourName = userInput.nextLine();
-		System.out.format("So what %s, you think you're funny or somethin'?", yourName);
-		delay(2);
+//		 Start the game, ask the player for their name, and create the player
+//		 PROLOGUE
 		
-		// Canned response block, maybe we can simplify this somehow?
-		System.out.println(" Choose a response: ");
-		System.out.println("A: Yeah. What are you gonna do about it?");
-		System.out.println("B: Nope. *You continue walking along*");
-		System.out.println("C: Uh. Um. Uh. Yeah? Wait no. No I don't!");
-		String reply = userInput.nextLine();
-		while (checkResponse(reply) == false) {
-			System.out.println("Please enter a valid response by typing A, B, or C.");
-			reply = userInput.nextLine();
+		try {
+			this.fileInput =new Scanner (Game.class.getResourceAsStream("./prologue.txt"));	
+		} catch (Exception e) {
+			System.err.println("Cannot open text file");
 		}
-		if (reply.equalsIgnoreCase("A")) {
-			System.out.println("The man is taken aback. \"What the heck you just say!?\"");
-		} else if (reply.equalsIgnoreCase("B")) {
-			System.out.println("The man scoffs. \"You just gonna keep walkin' like that?\"");
-		} else if (reply.equalsIgnoreCase("C")) {
-			System.out.println("The man keeps following you. \"You must think I'm stupid or somethin'.\"");
+			
+		while(this.fileInput.hasNext()) {
+			char path = 0;
+			String line = this.fileInput.nextLine();
+
+			if (checkForDelimiter(line)) {
+				line = fileInput.nextLine();
+
+				if (line.equals("\\path\\")) {
+					String firstChoice = userInput.nextLine();
+					while (checkResponse(firstChoice) == false) {
+						System.out.println("Please enter a valid response.");
+						firstChoice = userInput.nextLine();
+					}
+					if (firstChoice.equalsIgnoreCase("A")) {
+						path = '1';
+					}
+					else if (firstChoice.equalsIgnoreCase("B")) {
+						path = '2';
+					}
+					else if (firstChoice.equalsIgnoreCase("C")) {
+						path = '3';
+					}
+					String tempDelimiter = "\\path_" + path + "\\";
+					while (!line.equals("\\path_converge\\")) {
+						if (line.equals(tempDelimiter)) {
+							line = fileInput.nextLine();
+							while (!line.equals("\\end_path\\")) {
+								delay(2);
+								System.out.println(line);
+								line = fileInput.nextLine();
+							}
+							line=fileInput.nextLine();
+						}
+						else {
+							line = fileInput.nextLine();
+						}
+					}
+					
+				}
+				if (line.equals("\\name\\")) {
+					this.yourName = userInput.nextLine();
+				}
+				if (line.equals("\\format_line\\")) {
+					line = fileInput.next();
+					System.out.format("So what %s, you think you're funny or somethin'?", yourName);
+				}
+			}
+			else {
+				delay(1);
+				System.out.println(line);
+			}
 		}
 		
-		delay(2);
-		System.out.println("Then, a deep scowl appears on the man's face, almost as if nothing you said mattered.");
-		System.out.println("You see his fist come towards you and you wince");
-		System.out.println("but before you can make sense of the pain, everything turns black.");
-		delay(4);
-		System.out.println("-------------------------------------");
-		System.out.println("Welcome to Big Text Adventure, created by Jeff Su, Ryan Miller, and Jonathan Feehan");
-		System.out.println("This is a text adventure game where you interact, fight, chat, and more all through text. Enjoy!");
-		delay(2);
 		
+
 	}
 	
 	public boolean chapterOne() {
