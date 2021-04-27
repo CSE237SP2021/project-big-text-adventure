@@ -1,0 +1,126 @@
+\stop\
+\follow_chapter_path\
+\path_1_1\
+\stop\
+\format_line\
+\format_2\
+What will you do?
+A: Attack
+B: Run
+\stop\
+\path\
+\path_1_2\
+\stop\
+\battle\
+RabidDog 1 8 2 50
+Phew, that was close!
+You walk for a few blocks before you stop to get a drink in a bar.
+\end_path\
+\path_2_2\
+You duck into a nearby alley and flee from the enemy.
+In your haste, you become lost and find yourself in 'Ye Olde Drinking Place', a bar?
+\end_path\
+\path_converge_2\
+\end_path\
+\path_2_1\
+\stop\
+\format_line\
+\format_2\
+What will you do?
+A: Attack
+B: Run
+\stop\
+\path\
+\path_1_2\
+\stop\
+\battle\
+Drunken 1 8 2 50
+Phew, that was close!
+You walk for a few blocks before you stop to get a drink in a bar.
+\end_path\
+\path_2_2\
+You duck into a nearby alley and flee from the enemy.
+In your haste, you become lost and find yourself in 'Ye Olde Drinking Place', a bar?
+\end_path\
+\path_converge_2\
+\end_path\
+\path_converge_1\
+As you walk in the bar, you overhear a couple of locals talking.
+"So there I was the other week and this guy comes up to me in the bazaar and get this..."
+"And then BAM!, he just socks me right in 'da face! What was that?"
+"Ey! Same thing happened to me the other day while I was shoppin' for some veggies!"
+"Woah no way, same dude really gave me a headache at the same place!"
+"You begin to realize that they're talking about the same man who punched you."
+Overhearing the locals talking, you decide to...
+A: Step in the conversation
+B: Claim to be the man who punched them
+C: Ignore their struggles
+\stop\
+\path\
+\path_1_1\
+"Wait!" you say with excitement, "I was hit by the same man!"
+"We're plannin' to go out and find him, and teach him a lesson!"
+"Come with us! Let us take down this fowl bazaar assassin!"
+Will you join them?
+A: Join their conquest!
+B: Claim to be the man who punched them
+\stop\
+\path\
+\path_2_2\
+A wicked smile creeps up on your face..."I WAS THAT MAN!!" You say
+All of the locals stare at you for a second and they start to...
+Laugh at you loudly! "HAHAHAHAHA YOU!?! There's no way it was you."
+"You couldn't hurt a fly!" one of them says to you.
+"Ya know, we could use the help of someone with your guts!"
+"Come with us! Let us take down this fowl bazaar assassin!"
+Will you join them?
+A: Join their conquest!
+B: Ignore their struggles
+\end_path\
+\path_3_1\
+You walk past them, knowing well that they were wronged by the same man.
+You feel a bit guilty that you aren't helping, but hey...
+Not everyone can be a hero, not everyone can be brave, and...
+Not everyone is ready for a big text adventure.
+...
+......
+............
+Thank you for playing Big Text Adventure
+Created by Jeff Su, Ryan Miller, and Jonathan Feehan
+\end_path\
+\end_game\
+
+You decide that their fight is worth fighting and take a seat at the table.
+"So, where can we find this bazaar assassin?" you ask.
+"We think he runs the local meat shop, there's been so many new vegans recently, and his meat shop ain't been doin' too well!" Says one of the locals.
+"But why would he go around attacking random people?" You ask.
+"The Turkey Leg of Destiny" the locals all say in unison.
+How will you respond?
+A: The what of what?
+B: Turkey leg?? You mean this? *You pull out a drumstick out of your sack.
+\stop\
+\path\
+\path_1_1\
+The locals look both ways and motion for a huddle so nobody can hear the conversation.
+"Legend has it, if someone with the Turkey Leg of Destiny (TLoD) knocks someone out..."
+"They can use the TLoD to make them hate vegetables!!" They say together.
+"W..wh...what..." you say in disbelief as you realize that you have no appetite for the wonderful pot roast filled with carrots, potatoes, and onions in front of you.
+"We haven't eaten veggies in a week...we feel so...frail..." one of them says.
+"We must go to this meat shop and confront this fowl bazaar assassin!" You say.
+"Agreed! To vegetables!" The locals chant!
+\end_path\
+\path_2_1\
+"W..wh...WHERE DID YOU GET THAT!?" one of them says, taken aback.
+"Wait wait, no, that's the Chicken Leg of Might!" Another says.
+"What's that?" You ask
+"If you consume it, it gives you THE MIGHT OF A MIGHTY CHICKEN!" They say in unison.
+You take a bite while the locals stare in awe, instantly you begin to feel...
+MIGHTY, FAST, AND POWERFUL!!
+"But what about the Turkey Leg of Destiny?", you ask.
+\end_path\
+\path_converge_1\
+
+
+
+
+

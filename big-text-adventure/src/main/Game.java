@@ -5,6 +5,8 @@ public class Game {
 	
 	Scanner userInput = new Scanner(System.in);
 	Scanner fileInput;
+	String chapter_path;
+	int nest_level = 0;
 	private String yourName;
 	private Player mainPlayer;
 	
@@ -50,11 +52,31 @@ public class Game {
 		return false;
 	}
 	
-	public boolean checkForDelimiter(String line) {
+	public boolean checkForDelimiter(String line, Scanner fileInput, boolean preserve_scanner_position) {
 		if (line.equals("\\stop\\")) {
+			if (preserve_scanner_position) {
+				return true;
+			}
 			line = fileInput.nextLine();
 			if (line.equals("\\path\\")) {
-				goDownPath();
+				char path = 0;
+				line = this.fileInput.nextLine();
+				String firstChoice = userInput.nextLine();
+				while (checkResponse(firstChoice) == false) {
+					System.out.println("Please enter a valid response.");
+					firstChoice = userInput.nextLine();
+				}
+				if (firstChoice.equalsIgnoreCase("A")) {
+					path = '1';
+				}
+				else if (firstChoice.equalsIgnoreCase("B")) {
+					path = '2';
+				}
+				else if (firstChoice.equalsIgnoreCase("C")) {
+					path = '3';
+				}
+				String tempDelimiter = "\\path_" + path;
+				goDownPath(tempDelimiter, line);
 			}
 			if (line.equals("\\name\\")) {
 				this.yourName = userInput.nextLine();
@@ -69,12 +91,56 @@ public class Game {
 				Battle playerVsEnemy = new Battle(mainPlayer, enemy);
 				playerVsEnemy.startBattle();
 			}
+			if (line.equals("\\class\\")) {
+				String weaponChoice = userInput.next();
+				while (!checkResponse(weaponChoice)) {
+					System.out.println("Please enter a valid response by typing A, B, or C.");
+					weaponChoice = userInput.nextLine();
+				}
+				
+				// Create Player based on their choice
+				if (weaponChoice.equalsIgnoreCase("A")) {
+					classCreate("Mage");
+				} else if (weaponChoice.equalsIgnoreCase("B")) {
+					classCreate("Warrior");
+				} else if (weaponChoice.equalsIgnoreCase("C")) {
+					classCreate("Assassin");
+				}
+			}
+			if (line.equals("\\chapter_path\\")) {
+				String choice = userInput.nextLine();
+				while (checkResponse(choice) == false) {
+					System.out.println("Please enter a valid response.");
+					choice = userInput.nextLine();
+				}
+				if (choice.equalsIgnoreCase("A")) {
+					this.chapter_path = "1";
+				}
+				else if (choice.equalsIgnoreCase("B")) {
+					this.chapter_path = "2";
+				}
+				else if (choice.equalsIgnoreCase("C")) {
+					this.chapter_path = "3";
+				}
+			}
+			if (line.equals("\\follow_chapter_path\\")) {
+				String path = "\\path_" + this.chapter_path;
+				goDownPath(path, this.fileInput.nextLine());
+			}
 			//TODO Address Formatted lines
 			
 			if (line.equals("\\format_line\\")) {
 				line = fileInput.next();
 				if (line.equals("\\format_1\\")) {
 					System.out.format("So what %s, you think you're funny or somethin'?", yourName);
+				}
+				if (line.equals("\\format_2\\")) {
+					if (this.chapter_path.equals("1")) {
+						System.out.println("You follow the street for a ways, until a Rabid Dog blocks your path");
+					}
+					else {
+						System.out.println("You follow the street for a ways, until a Drunkard blocks your path");
+					}
 				}
 			}
 			return true;
@@ -93,97 +159,40 @@ public class Game {
 		}
 		while(this.fileInput.hasNext()) {
 			String line = this.fileInput.nextLine();
-			if (!checkForDelimiter(line)) {
-				delay(1);
+			if (!checkForDelimiter(line, this.fileInput, false)) {
+//				delay(1);
 				System.out.println(line);
 			}
 		}
 	}
 	
-	public void goDownPath() {
-		char path = 0;
-		String line = this.fileInput.nextLine();
-		String firstChoice = userInput.nextLine();
-		while (checkResponse(firstChoice) == false) {
-			System.out.println("Please enter a valid response.");
-			firstChoice = userInput.nextLine();
-		}
-		if (firstChoice.equalsIgnoreCase("A")) {
-			path = '1';
-		}
-		else if (firstChoice.equalsIgnoreCase("B")) {
-			path = '2';
-		}
-		else if (firstChoice.equalsIgnoreCase("C")) {
-			path = '3';
-		}
-		String tempDelimiter = "\\path_" + path + "\\";
-		while (!line.equals("\\path_converge\\")) {
-			if (line.equals(tempDelimiter)) {
-				line = fileInput.nextLine();
-				checkForDelimiter(line);
+	public void goDownPath(String tempDelimiter, String line) {
+		this.nest_level++;
+		while (!line.equals("\\path_converge_" + String.valueOf(this.nest_level) + "\\")) {
+			if (line.equals(tempDelimiter + "_" + String.valueOf(this.nest_level) + "\\")) {
+				line = this.fileInput.nextLine();
+				checkForDelimiter(line, this.fileInput, false);
 				while (!line.equals("\\end_path\\")) {
-					delay(2);
-					System.out.println(line);
-					line = fileInput.nextLine();
+//					delay(2);
+					
+					if (!checkForDelimiter(line, this.fileInput, true)) {
+						System.out.println(line);
+					}
+					else {
+						checkForDelimiter(line, this.fileInput, false);
+					}
+					line = this.fileInput.nextLine();
 				}
-				line=fileInput.nextLine();
+				line=this.fileInput.nextLine();
 			}
 			else {
-				line = fileInput.nextLine();
+				line = this.fileInput.nextLine();
 			}
 		}
+		this.nest_level--;
 	}
 	
 	
-	public boolean chapterOne() {
-		// CHAPTER 1
-		System.out.println("..");
-		delay(1);
-		System.out.println(".....");
-		delay(2);
-		System.out.println(".........");
-		delay(3);
-		System.out.println("You wake up in a dark alley.");
-		System.out.println("'I will find you, Bazaar Thief', you whisper under your breath.");
-		System.out.println("Conveniently, before you lay three weapons: a staff of magic, a sword of brutality, and a dagger of stealth.");
-		
-		// Pick up a weapon
-		System.out.println("Pick a weapon. This will decide your class.");
-		System.out.println("A: Pick up the staff of magic (become a mage).");
-		System.out.println("B: Pick up the sword of brutality (become a warrior).");
-		System.out.println("C: Pick up the dagger of stealth (become an assassin).");
-		String weaponChoice = userInput.nextLine();
-		while (!checkResponse(weaponChoice)) {
-			System.out.println("Please enter a valid response by typing A, B, or C.");
-			weaponChoice = userInput.nextLine();
-		}
-		
-		// Create Player based on their choice
-		if (weaponChoice.equalsIgnoreCase("A")) {
-			classCreate("Mage");
-		} else if (weaponChoice.equalsIgnoreCase("B")) {
-			classCreate("Warrior");
-		} else if (weaponChoice.equalsIgnoreCase("C")) {
-			classCreate("Assassin");
-		}
-		
-		// Choose path to go down
-		System.out.println("You exit the alley onto a bustling street. Which way will you go?");
-		System.out.println("A: Left.");
-		System.out.println("B: Right.");
-		String pathChoice = userInput.nextLine();
-		while (!checkResponse(pathChoice)) {
-			System.out.println("Please enter a valid response by typing A or B.");
-			pathChoice = userInput.nextLine();
-		}
-		
-		if (pathChoice.equalsIgnoreCase("A")) {
-			return true;
-		}
-		
-		return false;
-	}
 	
 	public void chapterTwo(boolean pathChoice) {
 		Enemy enemy = null;
@@ -240,10 +249,13 @@ public class Game {
 	
 
 	public void play() {
-		readStoryFile("./prologue.txt");
-		boolean pathChoice = chapterOne();
-		System.out.println(pathChoice);
-		chapterTwo(pathChoice);
+		readStoryFile("./story_text/prologue.txt");
+		readStoryFile("./story_text/chapter_1.txt");
+		readStoryFile("./story_text/chapter_2.txt");
+		
+		//boolean pathChoice = chapterOne();
+		//System.out.println(pathChoice);
+		//chapterTwo(pathChoice);
 	}
 	
 

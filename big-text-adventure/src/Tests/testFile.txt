@@ -13,7 +13,6 @@ stop        9
 \stop\
 this        14
   shouldnt  15
-stop        16
 \stop\
 \stop\
 the text    18

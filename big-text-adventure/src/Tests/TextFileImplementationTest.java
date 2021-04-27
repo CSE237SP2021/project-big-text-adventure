@@ -24,7 +24,7 @@ class TextFileImplementationTest {
 		}
 		while (testFile.hasNext()) {
 			String line = testFile.nextLine();
-			if (testGame.checkForDelimiter(line)) {
+			if (testGame.checkForDelimiter(line, testFile, true)) {
 				assert (line_counter == correct_line_numbers[array_index_counter]);
 				array_index_counter++;
 			}
@@ -51,7 +51,7 @@ class TextFileImplementationTest {
 		
 		while(testFile_various.hasNext()) {
 			String line = testFile_various.next();
-			if (testGame.checkForDelimiter(line)) {
+			if (testGame.checkForDelimiter(line, testFile_various, true)) {
 				line = testFile_various.next();
 				if (line.equals("\\path\\")) {
 					path_counter++;
