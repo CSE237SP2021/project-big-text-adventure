@@ -1,0 +1,109 @@
+
+
+You and your squad arrive to the bazaar the next day.
+You see the same events as the previous day, a bazaar thief running away!
+"Well ain't we gonna stop the thief!?" You ask your squad.
+"No, we mustn't be distracted by some food thief, let us find the culprit!"
+Ignoring the thief, you and your squad walk towards the meat shop.
+There, a young man stands behind the case of meat. "What can I get you folks?"
+One of the squad steps up and says "We'll take a pork shoulder, 6.9 pounds"
+"Nice." Says the man, as he walks back to unlock a hidden door underneath the case of meat.
+"W..what did you just do?" You ask the squad member.
+"That's the code to meet the meat shop owner!" He responds.
+Will you go down the hidden path?
+A: Don't go down the path, your squad seems suspicious.
+B: Join your squad as they go down the path.
+\stop\
+\path\
+\path_1_1\
+You look around nervously, everyone seems far too comfortable.
+"Uh I think I'm good guys, I'm just going to go and grab a bite to eat." You say nervously.
+"Hey, you can't just leave us like that! Are you a coward?" one squad member says.
+\battle\
+Squad Members 100 100 100 100
+"We were never the bad guys" one of them says. "But we will never allow a coward like you to be joinin' adventures as a fake!"
+You feel a bit guilty that you wanted to leave, but hey...
+Not everyone can be a hero, not everyone can be brave, and...
+Not everyone is ready for a big text adventure.
+...
+......
+............
+Thank you for playing Big Text Adventure
+Created by Jeff Su, Ryan Miller, and Jonathan Feehan
+\end_path\
+\end_game\
+\path_2_1\
+\path_converge_1\
+"Sounds about right" you say as you and your squad descend down a dark set of stairs.
+"Ready your weapons folks." Says one of the squad members.
+Before you reach the bottom door, a mysterious ghost appears out of the wall.
+"Oooooooo....Ooooooo...OOOOOOO....I am the ghost of healthy meat portions..." The ghost says ominously.
+"To oooooobtain a wonderful weapon, tell me how many calories are in 100 grams of turkey!" The ghost says.
+How many calories?
+A: 189 calories
+B: 179 calories
+\stop\
+\path\
+\path_1_2\
+"Correct! You have obtained the secret Celery Sword of Serenity!" Says the ghost.
+The ghost materializes a wonderful, shining green sword that smells of celery.
+"This will be the ultimate weapon against the TLoD!" Says a squad member.
+\give_item\
+CelerySwordOfSerenity 100 100 10000 1
+\end_path\
+\path_2_2\
+"Incorrect! Sorry!" The ghost says as they float back into the walls.
+\end_path\
+\path_converge_2\
+As your squad reaches the door, you can hear a man shouting...
+"AAGGHHH WHY MUST VEGANS, VEGETARIANS, AND VEGETABLES BE SO HEALTHY!!"
+"WHY CAN I NOT GROW MEAT OUT OF THE GROUND?"
+"WHY IS FATTY PORK NOT AS HEALTHY AS BROCOLLI??"
+You and your squad tense up and draw your weapons.
+You kick down the door.
+You see the same man who knocked you out standing amongst a pile of steaks, chickens, ducks, and pork chops.
+His eyes filled with tears, he says..."For years I have felt wronged by veggies...now...it is time for me to take my revenge!"
+He closes his eyes and begins a chant as the meat begins to swirl around his body.
+"Quick! Take him out before he finishes the ritual!" Says a squad member.
+But before you can attack, all of the meat drops and the man's eyes turn red.
+Suddenly, a deafening explosion causes your squad to turn to dust, except you.
+"BOW BEFORE ME, THE DRAGON OF MEAT!" Says the meat man, now transformed into a large dragon composed of various high quality cuts of meat.
+"Never." You say, beginning to crave a nice green salad.
+Imbued with energy from the greens in the market above you, you prepare to fight.
+\stop\
+\battle\
+Dragon 10 50 5 100
+\path\
+\check_hp\
+\path_3_1\
+"I...just wanted to eliminate all vegetables...." The dragon says before he crumbles to bones.
+...
+......
+"MEAT your maker, you sick fool!" you proudly proclaim.
+"Pun intended."
+Not everyone can be a hero, and not everyone can be brave...
+But in the face of adversity and the extinction of all vegetables,
+You stood your ground, and the world will be forever grateful.
+...
+......
+............
+Congratulations!
+Thank you for playing Big Text Adventure
+Created by Jeff Su, Ryan Miller, and Jonathan Feehan
+\end_path\
+\end_game\
+\path_3_2\
+"BWAHAHAHAHA, VEGETABLES WILL BE NO LONGER! GOODBYE GREEN INSECTS!"
+"No....I'm sorry....vegetables..." you say as everything fades to black.
+Not everyone can be a hero, and not everyone can be brave...
+But you fought your hardest, even if it means no leafy greens ever again.
+...
+......
+............
+Thank you for playing Big Text Adventure
+Created by Jeff Su, Ryan Miller, and Jonathan Feehan
+\end_path\
+\end_game\
+\set_path\
+1
+\path_converge_1\
