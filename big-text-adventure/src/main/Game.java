@@ -141,7 +141,6 @@ public class Game {
 				int new_level = fileInput.nextInt();
 				this.nest_level = new_level;
 			}
-       TextFileChapterThree
 			if (line.equals("\\check_hp\\")) {
 				if (checkHp()) {
 					this.chapter_path = "1";
@@ -189,7 +188,7 @@ public class Game {
 		while(this.fileInput.hasNext()) {
 			String line = this.fileInput.nextLine();
 			if (!checkForDelimiter(line, this.fileInput, false)) {
-//				delay(1);
+				delay(1);
 				System.out.println(line);
 			}
 		}
@@ -209,7 +208,7 @@ public class Game {
 					return;
 				}
 				while (!line.equals("\\end_path\\")) {
-//					delay(2);
+					delay(1);
 					
 					if (!checkForDelimiter(line, this.fileInput, true)) {
 						System.out.println(line);
@@ -252,69 +251,11 @@ public class Game {
 		return;
 	}
 	
-	
-	public void chapterTwo(boolean pathChoice) {
-		Enemy enemy = null;
-		String enemyName = ""; 
-		
-		if (pathChoice) {
-			enemy = new Enemy("Rabid Dog", 1, 8, 2, 50);
-			enemyName = "rabid dog";
-		} else {
-			enemy = new Enemy("Drunken", 1, 8, 2, 50);
-			enemyName = "drunken man";
-		}
-		
-		System.out.println("You follow the street for a ways, until a " + enemyName + " blocks your path. What will you do?");
-		System.out.println("A: Attack.");
-		System.out.println("B: Run.");
-		String enemyChoice = userInput.nextLine();
-
-		while (!checkResponse(enemyChoice)) {
-			System.out.println("Please enter a valid response by typing A or B.");
-			enemyChoice = userInput.nextLine();
-		}
-		
-		if (enemyChoice.equalsIgnoreCase("A")) {
-			// Handle battle with enemy
-			Battle playerVsEnemy = new Battle(mainPlayer, enemy);
-			playerVsEnemy.startBattle();
-			System.out.println("Phew, that was close!");
-			delay(2);
-			System.out.println("You walk for a few blocks before you stop to get a drink in a bar.");
-		} else {
-			System.out.println("You duck into a nearby alley and flee from the enemy. "
-					+ "In your haste, you become lost and find yourself in 'Ye Olde Drinking Place', a bar?");
-		}
-
-		System.out.println("As you walk in the bar, you overhear a couple of locals talking...");
-		delay(2);
-		System.out.println("\"So there I was the other week and this guy comes up to me in the bazaar and get this...\"");
-		delay(3);
-		System.out.println("\"And then BAM, he just socks me right in 'a face! What was that?\"");
-		delay(2);
-		System.out.println("\"Ey! Same thing happened to me the other day while I was shoppin' for some meat!\"");
-		delay(1);
-		System.out.println("\"Woah no way, some dude really gave me a headache at the same place!\"");
-		delay(2);
-		System.out.println("You begin to realize that they're talking about the same man who punched you.");
-
-		// Allow choices, A: continue conversation, B: ask question, C: pass by 
-
-
-	}
-
-	
-	
-
 	public void play() {
 		readStoryFile("./story_text/prologue.txt");
 		readStoryFile("./story_text/chapter_1.txt");
 		readStoryFile("./story_text/chapter_2.txt");
 		readStoryFile("./story_text/chapter_3.txt");
-		//boolean pathChoice = chapterOne();
-		//System.out.println(pathChoice);
-		//chapterTwo(pathChoice);
 	}
 	
 

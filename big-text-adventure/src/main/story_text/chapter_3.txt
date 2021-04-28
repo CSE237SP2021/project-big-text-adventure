@@ -1,5 +1,6 @@
-
-
+\stop\
+\set_nest\
+0
 You and your squad arrive to the bazaar the next day.
 You see the same events as the previous day, a bazaar thief running away!
 "Well ain't we gonna stop the thief!?" You ask your squad.
@@ -19,8 +20,9 @@ B: Join your squad as they go down the path.
 You look around nervously, everyone seems far too comfortable.
 "Uh I think I'm good guys, I'm just going to go and grab a bite to eat." You say nervously.
 "Hey, you can't just leave us like that! Are you a coward?" one squad member says.
+\stop\
 \battle\
-Squad Members 100 100 100 100
+SquadMembers 100 100 100 100
 "We were never the bad guys" one of them says. "But we will never allow a coward like you to be joinin' adventures as a fake!"
 You feel a bit guilty that you wanted to leave, but hey...
 Not everyone can be a hero, not everyone can be brave, and...
@@ -30,9 +32,11 @@ Not everyone is ready for a big text adventure.
 ............
 Thank you for playing Big Text Adventure
 Created by Jeff Su, Ryan Miller, and Jonathan Feehan
-\end_path\
-\end_game\
+\stop\
+\skip\
+skip_3_end
 \path_2_1\
+\end_path\
 \path_converge_1\
 "Sounds about right" you say as you and your squad descend down a dark set of stairs.
 "Ready your weapons folks." Says one of the squad members.
@@ -44,17 +48,18 @@ A: 189 calories
 B: 179 calories
 \stop\
 \path\
-\path_1_2\
+\path_1_1\
 "Correct! You have obtained the secret Celery Sword of Serenity!" Says the ghost.
 The ghost materializes a wonderful, shining green sword that smells of celery.
 "This will be the ultimate weapon against the TLoD!" Says a squad member.
+\stop\
 \give_item\
 CelerySwordOfSerenity 100 100 10000 1
 \end_path\
-\path_2_2\
+\path_2_1\
 "Incorrect! Sorry!" The ghost says as they float back into the walls.
 \end_path\
-\path_converge_2\
+\path_converge_1\
 As your squad reaches the door, you can hear a man shouting...
 "AAGGHHH WHY MUST VEGANS, VEGETARIANS, AND VEGETABLES BE SO HEALTHY!!"
 "WHY CAN I NOT GROW MEAT OUT OF THE GROUND?"
@@ -73,9 +78,11 @@ Imbued with energy from the greens in the market above you, you prepare to fight
 \stop\
 \battle\
 Dragon 10 50 5 100
-\path\
+\stop\
 \check_hp\
-\path_3_1\
+\stop\
+\follow_chapter_path\
+\path_1_1\
 "I...just wanted to eliminate all vegetables...." The dragon says before he crumbles to bones.
 ...
 ......
@@ -91,8 +98,10 @@ Congratulations!
 Thank you for playing Big Text Adventure
 Created by Jeff Su, Ryan Miller, and Jonathan Feehan
 \end_path\
-\end_game\
-\path_3_2\
+\stop\
+\skip\
+skip_3_end
+\path_2_1\
 "BWAHAHAHAHA, VEGETABLES WILL BE NO LONGER! GOODBYE GREEN INSECTS!"
 "No....I'm sorry....vegetables..." you say as everything fades to black.
 Not everyone can be a hero, and not everyone can be brave...
@@ -103,7 +112,7 @@ But you fought your hardest, even if it means no leafy greens ever again.
 Thank you for playing Big Text Adventure
 Created by Jeff Su, Ryan Miller, and Jonathan Feehan
 \end_path\
-\end_game\
-\set_path\
-1
-\path_converge_1\
+\skip\
+skip_3_end
+
+\skip_3_end_location\
