@@ -1,0 +1,44 @@
+============================================================
+You feel a warm breeze across your face as you enter the bazaar.
+Looking around the market, you notice a commotion around a nearby stall. On lookers shout that there's a thief escaping with stolen merchandise. What will you do? 
+
+A: Head towards the commotion.
+B: Head in the opposite direction.
+\stop\
+\path\
+\path_1_1\
+As you walk towards the scene, a man bursts out of the crowd, knocking you to the ground.
+\end_path\
+\path_2_1\
+In your rush to get away, you don't notice a man running from the crowd, shoving people out of the way You're knocked to the ground.
+\end_path\
+\path_converge_1\
+Recovering from the collision, the man yells out. "Get out of my way, kid! What's your name?
+(Enter your name.)
+\stop\
+\name\
+\stop\
+\format_line\
+\format_1\
+ Choose a response: 
+A: Yeah. What are you gonna do about it?
+B: Nope. *You continue walking along*
+C: Uh. Um. Uh. Yeah? Wait no. No I don't!
+\stop\
+\path\
+\path_1_1\
+The man is taken aback. "What the heck you just say!?"
+\end_path\
+\path_2_1\
+The man scoffs. "You just gonna keep walkin' like that?"
+\end_path\
+\path_3_1\
+The man keeps following you. "You must think I'm stupid or somethin'."
+\end_path\
+\path_converge_1\
+Then, a deep scowl appears on the man's face, almost as if nothing you said mattered.
+You see his fist come towards you and you wince
+but before you can make sense of the pain, everything turns black.
+-------------------------------------
+Welcome to Big Text Adventure, created by Jeff Su, Ryan Miller, and Jonathan Feehan
+This is a text adventure game where you interact, fight, chat, and more all through text. Enjoy!
