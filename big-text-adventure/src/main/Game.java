@@ -53,6 +53,10 @@ public class Game {
 		return false;
 	}
 	
+	public boolean checkHp() {
+		return mainPlayer.getPlayerHP() > 0;
+	}
+	
 	public boolean checkForDelimiter(String line, Scanner fileInput, boolean preserve_scanner_position) {
 		if (line.equals("\\stop\\")) {
 			if (preserve_scanner_position) {
@@ -137,7 +141,23 @@ public class Game {
 				int new_level = fileInput.nextInt();
 				this.nest_level = new_level;
 			}
-			
+       TextFileChapterThree
+			if (line.equals("\\check_hp\\")) {
+				if (checkHp()) {
+					this.chapter_path = "1";
+				} else {
+					this.chapter_path = "2";
+				}
+			}
+			if (line.equals("\\give_item\\")) {
+				String itemName = fileInput.next();
+				int damage = fileInput.nextInt();
+				int def = fileInput.nextInt();
+				int val = fileInput.nextInt();
+				int itemClass = fileInput.nextInt();
+				Weapon newItem = new BasicWeapon(itemName, damage, def, val, itemClass);
+				mainPlayer.addToInventory(newItem);
+			}			
 			if (line.equals("\\format_line\\")) {
 				line = fileInput.next();
 				if (line.equals("\\format_1\\")) {
@@ -291,7 +311,7 @@ public class Game {
 		readStoryFile("./story_text/prologue.txt");
 		readStoryFile("./story_text/chapter_1.txt");
 		readStoryFile("./story_text/chapter_2.txt");
-		
+		readStoryFile("./story_text/chapter_3.txt");
 		//boolean pathChoice = chapterOne();
 		//System.out.println(pathChoice);
 		//chapterTwo(pathChoice);
