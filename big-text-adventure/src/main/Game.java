@@ -9,6 +9,7 @@ public class Game {
 	int nest_level = 0;
 	private String yourName;
 	private Player mainPlayer;
+	boolean skip = false;
 	
 	public void delay(int numSeconds) {
 		try {
@@ -82,6 +83,11 @@ public class Game {
 				String tempDelimiter = "\\path_" + path;
 				goDownPath(tempDelimiter, line);
 			}
+			if (line.equals("\\skip\\")) {
+				this.skip = true;
+				String skip_value = this.fileInput.nextLine();
+				skipToLine(skip_value);
+			}
 			if (line.equals("\\name\\")) {
 				this.yourName = userInput.nextLine();
 			}
@@ -131,6 +137,11 @@ public class Game {
 				String path = "\\path_" + this.chapter_path;
 				goDownPath(path, this.fileInput.nextLine());
 			}
+			if (line.equals("\\set_nest\\")) {
+				int new_level = fileInput.nextInt();
+				this.nest_level = new_level;
+			}
+       TextFileChapterThree
 			if (line.equals("\\check_hp\\")) {
 				if (checkHp()) {
 					this.chapter_path = "1";
@@ -146,9 +157,7 @@ public class Game {
 				int itemClass = fileInput.nextInt();
 				Weapon newItem = new BasicWeapon(itemName, damage, def, val, itemClass);
 				mainPlayer.addToInventory(newItem);
-			}
-			//TODO Address Formatted lines
-			
+			}			
 			if (line.equals("\\format_line\\")) {
 				line = fileInput.next();
 				if (line.equals("\\format_1\\")) {
@@ -190,8 +199,15 @@ public class Game {
 		this.nest_level++;
 		while (!line.equals("\\path_converge_" + String.valueOf(this.nest_level) + "\\")) {
 			if (line.equals(tempDelimiter + "_" + String.valueOf(this.nest_level) + "\\")) {
+				if (!this.fileInput.hasNext()) {
+					return;
+				}
 				line = this.fileInput.nextLine();
 				checkForDelimiter(line, this.fileInput, false);
+				if (this.skip) {
+					this.skip=false;
+					return;
+				}
 				while (!line.equals("\\end_path\\")) {
 //					delay(2);
 					
@@ -201,17 +217,40 @@ public class Game {
 					else {
 						checkForDelimiter(line, this.fileInput, false);
 					}
+					if (this.skip) {
+						this.skip=false;
+						return;
+					}
+					if (!this.fileInput.hasNext()) {
+						return;
+					}
 					line = this.fileInput.nextLine();
+				}
+				if (!this.fileInput.hasNext()) {
+					return;
 				}
 				line=this.fileInput.nextLine();
 			}
 			else {
+				if (this.skip) {
+					this.skip=false;
+					return;
+				}
+				if (!this.fileInput.hasNext()) {
+					return;
+				}
 				line = this.fileInput.nextLine();
 			}
 		}
 		this.nest_level--;
 	}
 	
+	public void skipToLine(String skip_value) {
+		skip_value = "\\" + skip_value + "_location\\";
+		while (!skip_value.equals(fileInput.nextLine())) {
+		}
+		return;
+	}
 	
 	
 	public void chapterTwo(boolean pathChoice) {
