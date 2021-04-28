@@ -16,10 +16,10 @@ public class Player {
 	private int playerXP;
 	private String playerClass;
 	// TODO This will probably be an ArrayList of Weapons, rather than just strings
-	private ArrayList<String> playerInventory = new ArrayList<String>();
+	private ArrayList<Weapon> playerInventory = new ArrayList<Weapon>();
 	
 	public Player(String playerName, int playerLevel, int playerHP, int playerATK, int playerDEF, 
-			int playerMANA, int playerSTAMINA, int playerXP, String playerClass, ArrayList<String> playerInventory) {
+			int playerMANA, int playerSTAMINA, int playerXP, String playerClass) {
 		this.playerName = playerName;
 		this.playerLevel = playerLevel;
 		this.playerHP = playerHP;
@@ -29,7 +29,6 @@ public class Player {
 		this.playerSTAMINA = playerSTAMINA;
 		this.playerXP = playerXP;
 		this.playerClass = playerClass;
-		this.playerInventory = playerInventory;
 	}
 
 
@@ -119,20 +118,22 @@ public class Player {
 	}
 
 
-	public ArrayList<String> getPlayerInventory() {
+	public ArrayList<Weapon> getPlayerInventory() {
 		return playerInventory;
 	}
 
 
-	public void setPlayerInventory(ArrayList<String> playerInventory) {
+	public void setPlayerInventory(ArrayList<Weapon> playerInventory) {
 		this.playerInventory = playerInventory;
 	}
 
+	public void addToInventory(Weapon weapon) {
+		this.playerInventory.add(weapon);
+	}
 
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
 	}
-
 
 	public void changeHp(int hpAmount) {
 		this.playerHP += hpAmount;

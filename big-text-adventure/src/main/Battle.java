@@ -7,6 +7,7 @@ public class Battle {
 	static Scanner userInput = new Scanner(System.in);
 	private static Player player;
 	private static Enemy enemy;
+	private static boolean escaped;
 	
 	/**
 	 * Constructs a Battle object
@@ -16,11 +17,16 @@ public class Battle {
 	public Battle(Player player, Enemy enemy) {
 		this.player = player;
 		this.enemy = enemy;
+		this.escaped = false;
 	}
 	
+	/**
+	 * Check response given by user, ensuring it is within the allowed responses
+	 * @param response 
+	 * @return true if response allowed, false otherwise
+	 */
 	public boolean checkResponse(String response) {
-		// This checks the response the user gives, and ensures it is within the allowed responses.
-		String[] allowedResponses = {"A", "B", "C"};
+		String[] allowedResponses = {"A", "B", "C", "D"};
 		for (String answer : allowedResponses) {
 			if (response.equalsIgnoreCase(answer)) {
 				return true;
@@ -29,11 +35,15 @@ public class Battle {
 		return false;
 	}
 
+	/**
+	 * Determine if a hit is critical
+	 * @return true if critical hit, false otherwise 
+	 */
 	public boolean criticalHit() {
 		int min = 1;
 		int max = 100;
 		int randomHit = (int)Math.floor(Math.random()*(max - min + 1) + min);
-		if (randomHit == 69) {
+		if (randomHit == 68) {
 			System.out.println("Nice. Critical Hit!");
 			return true;
 		} else {
@@ -41,12 +51,20 @@ public class Battle {
 		}
 	}
 
+	/**
+	 * Player takes their turn - given choice of actions depending on their class
+	 */
 	public void playerTurn() {
 		// Allow player to choose between basic attack, spell, or item
-		System.out.println("You move first. Will you attack, use a spell, or use an item?");
+		System.out.println("You move first. How will you fight?");
 		System.out.println("A: Attack");
-		System.out.println("B: Spell");
-		System.out.println("C: Item");
+		System.out.println("B: Item");
+		if (player.getPlayerClass() == "Mage") {
+			System.out.println("C: Spell");
+			System.out.println("D: Run");
+		} else {
+			System.out.println("C: Run");
+		}
 		
 		String moveChoice = userInput.nextLine();
 		while (checkResponse(moveChoice) == false) {
@@ -56,22 +74,118 @@ public class Battle {
 		
 		// Handle attack - apply damage done to enemy based on stats of both	
 		if (moveChoice.equalsIgnoreCase("A")) {
-			int attackDamage = (player.getPlayerATK()) * -1;
-			if (criticalHit()) {
-				attackDamage = attackDamage * 3;
-			}
-			enemy.changeHp(attackDamage);
-			System.out.println("You dealt " + player.getPlayerATK() + " damage to " + enemy.getName() + "!");
-			System.out.println(enemy.getName() + " has " + enemy.getHp() + " HP left.");
-			System.out.println("You have " + player.getPlayerHP() + " HP left.");
+			playerAttack();
 		}
 		
-		// Handle spell - apply damage done to enemy based on stats of both and spell
 		// Handle item - apply effects of item
+		if (moveChoice.equalsIgnoreCase("B")) {
+			useItem();
+		}
+
+		// Handle spell or run - apply damage done to enemy based on stats of both and spell
+		if (moveChoice.equalsIgnoreCase("C")) {
+			if (player.getPlayerClass() == "Mage") {
+				// C is spell
+				useSpell();
+			} else {
+				// C is run
+				run();
+			}
+		}
+		if (moveChoice.equalsIgnoreCase("D")) {
+			// D is run
+			run();
+		}
+	}
+
+	/**
+	 * Player uses an item against an enemy
+	 */
+	public void useItem() {
+		System.out.println("Which item?:");
+		char choice = 'A';
+		for (Weapon item : player.getPlayerInventory()) {
+			System.out.println(choice + ": " + item.getName());
+			choice++;			
+		}
+		System.out.println(choice + ": Back");
+		String moveChoice = userInput.nextLine();
+		while (checkResponse(moveChoice) == false) {
+			System.out.println("Please enter a valid response");
+			moveChoice = userInput.nextLine();
+		}
+		char potentialChoice = 'A';
+		// Check input against all items, apply damage if item is chosen
+		for (Weapon item : player.getPlayerInventory()) {
+			if (moveChoice.equalsIgnoreCase(String.valueOf(potentialChoice))) {
+				int itemDamage = item.getDamage() * -1;
+				if (criticalHit()) {
+					itemDamage = itemDamage * 3;
+				}
+				enemy.changeHp(itemDamage);
+				System.out.println("You dealt " + player.getPlayerATK() + " damage to " + enemy.getName() + 
+						   " with " + item.getName() + "!");
+				System.out.println("Enemy " + enemy.getName() + " has " + enemy.getHp() + " HP left.");
+				System.out.println("You have " + player.getPlayerHP() + " HP left.");
+			}
+			potentialChoice++;
+		}
+		// Return to playerTurn if user chooses to go back
+		if (moveChoice.equalsIgnoreCase(String.valueOf(choice))) {
+			playerTurn();
+		}
+	}
+
+	/**
+	 * Player uses attack against an enemy
+	 */
+	public void playerAttack() {
+		int attackDamage = (player.getPlayerATK() * -1);
+		if (criticalHit()) {
+			attackDamage = attackDamage * 3;
+		}
+		enemy.changeHp(attackDamage);
+		System.out.println("You dealt " + player.getPlayerATK() + " damage to " + enemy.getName() + "!");
+		System.out.println("Enemy " + enemy.getName() + " has " + enemy.getHp() + " HP left.");
+		System.out.println("You have " + player.getPlayerHP() + " HP left.");
 	}
 	
+	/**
+	 * Player attempts to run - successful if player's level is higher than enemy's level
+	 * 
+	 * @return true if successful, false otherwise
+	 */
+	public boolean run() {
+		if (player.getPlayerLevel() > enemy.getLevel()) {
+			System.out.println("You escaped from enemy " + enemy.getName() + "!");
+			endBattle();
+			return true;
+		}
+		System.out.println("You couldn't get away!");
+		return false;
+	}
+	
+	/**
+	 * Player uses spell against enemy
+	 */
+	public void useSpell() {
+		// Handle spell attack - apply damage to enemy based on stats of both
+		int spellDamage = player.getPlayerATK() * player.getPlayerMANA() * -1;
+		if (criticalHit()) {
+			spellDamage *= 3;
+		}
+		enemy.changeHp(spellDamage);
+		player.setPlayerMANA(0);
+		System.out.println("You dealt " + player.getPlayerATK() + " spell damage to " + enemy.getName() + "!");
+		System.out.println("Enemy " + enemy.getName() + " has " + enemy.getHp() + " HP left.");
+		System.out.println("You have " + player.getPlayerHP() + " HP left.");
+		System.out.println("You have " + player.getPlayerMANA() + " MANA left.");
+	}
+	
+	/**
+	 * Enemy takes its turn by attacking
+	 */
 	public void enemyTurn() {
-		// Enemy uses one of its attacks
 		int enemyAttackDamage = enemy.getAtk() * -1;
 		player.changeHp(enemyAttackDamage);
 		System.out.println(enemy.getName() + " dealt " + enemy.getAtk() + " damage to you!");
@@ -79,6 +193,9 @@ public class Battle {
 		System.out.println(enemy.getName() + " has " + enemy.getHp() + " HP left.");
 	}
 	
+	/**
+	 * Handle battle starting, and continue running battle until either enemy or player reaches 0 HP
+	 */
 	public void startBattle() {
 		System.out.println("-----------------------");
 		System.out.println(player.getPlayerName() + " VS. " + enemy.getName());
@@ -87,14 +204,23 @@ public class Battle {
 			if (player.getPlayerHP() > 0 && enemy.getHp() > 0) {
 				enemyTurn();
 			}
+			int currentMana = player.getPlayerMANA();
+			if (currentMana < 5) {
+				player.setPlayerMANA(currentMana + 1);
+			}
 		}
 		endBattle();
 	}
 	
+	/**
+	 * Handle ending battle, give XP to player if earned
+	 */
 	public static void endBattle() {
-		if (player.getPlayerHP() > 0) {
+		if (player.getPlayerHP() > 0 && !escaped) {
 			System.out.println(player.getPlayerName() + " wins!");
 			player.gainXP(80);
+		} else if (player.getPlayerHP() > 0) {
+			
 		} else {
 			System.out.println(enemy.getName() + "wins!");
 		}

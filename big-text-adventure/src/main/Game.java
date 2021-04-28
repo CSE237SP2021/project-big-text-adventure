@@ -3,45 +3,46 @@ import java.util.*;
 
 public class Game {
 	
-	static Scanner userInput = new Scanner(System.in);
-	private static String yourName;
-	private static ArrayList<String> yourInventory = new ArrayList<String>();
-	private static Player mainPlayer;
+	Scanner userInput = new Scanner(System.in);
+	Scanner fileInput;
+	String chapter_path;
+	int nest_level = 0;
+	private String yourName;
+	private Player mainPlayer;
+	boolean skip = false;
 	
-	public static void delay(int numSeconds) {
+	public void delay(int numSeconds) {
 		try {
 			Thread.sleep(numSeconds * 1000);
 		} catch (InterruptedException e) {
-			// Nothing? Not sure if we need to add something here.
 		}
 	}
 	
-	public static void classCreate(String className) {
+	public void classCreate(String className) {
 		if (className.equals("Mage")) {
-			yourInventory.add("Staff of Magic");
-			mainPlayer = new Player(yourName, 1, 10, 8, 5, 10, 4, 0, "Mage", yourInventory);
+			Weapon staff = new BasicWeapon("Staff of Magic", 10, 15, 15, 0);
+			mainPlayer = new Player(yourName, 1, 10, 8, 5, 10, 4, 0, "Mage");
+			mainPlayer.addToInventory(staff);
 		} else if (className.equals("Warrior")) {
-			yourInventory.add("Sword of Brutality");
-			mainPlayer = new Player(yourName, 1, 20, 5, 10, 4, 5, 0, "Warrior", yourInventory);
+			Weapon sword = new BasicWeapon("Sword of Brutality", 15, 10, 15, 1);
+			mainPlayer = new Player(yourName, 1, 20, 5, 10, 4, 5, 0, "Warrior");
+			mainPlayer.addToInventory(sword);
 		} else if (className.equals("Assassin")) {
-			yourInventory.add("Dagger of Stealth");
-			mainPlayer = new Player(yourName, 1, 5, 13, 1, 6, 10, 0, "Assassin", yourInventory);
+			Weapon dagger = new BasicWeapon("Dagger of Stealth", 15, 10, 15, 1);
+			mainPlayer = new Player(yourName, 1, 5, 13, 1, 6, 10, 0, "Assassin");
+			mainPlayer.addToInventory(dagger);
 		}
 	}
 	
-	public static Player getMainPlayer() {
+	public Player getMainPlayer() {
 		return mainPlayer;
 	}
-	
-	public static ArrayList<String> getPlayerInventory() {
-		return yourInventory;
-	}
-	
-	public static String getPlayerName() {
+		
+	public String getPlayerName() {
 		return yourName;
 	}
 	
-	public static boolean checkResponse(String response) {
+	public boolean checkResponse(String response) {
 		// This checks the response the user gives, and ensures it is within the allowed responses.
 		String[] allowedResponses = {"A", "B", "C"};
 		for (String answer : allowedResponses) {
@@ -52,156 +53,209 @@ public class Game {
 		return false;
 	}
 	
-	public static void thePrologue() {
-		// Start the game, ask the player for their name, and create the player
-		// PROLOGUE
-		System.out.println("============================================================");
-		System.out.println("You feel a warm breeze across your face as you enter the bazaar.");
-		delay(3);
-		System.out.println("Looking around the market, you notice a commotion around a nearby stall. Onlookers shout that there's a thief escaping with stolen merchandise. What will you do?");
-		delay(2);
-		System.out.println("A: Head towards the commotion.");
-		System.out.println("B: Head in the opposite direction. ");
-		String firstChoice = userInput.nextLine();
-		while (checkResponse(firstChoice) == false) {
-			System.out.println("Please enter a valid response by typing A or B.");
-			firstChoice = userInput.nextLine();
-		}
-		if (firstChoice.equalsIgnoreCase("A")) {
-			System.out.print("As you walk towards the scene, a man bursts out of the crowd, knocking you to the ground. ");
-		} else {
-			System.out.print("In your rush to get away, you don't notice a man running from the crowd, shoving people out of the way. "
-					+ "You're knocked to the ground. ");
-		}
-		delay(1);
-		System.out.println("Recovering from the collision, the man yells out. \"Get out of my way, kid! What's your name?\"");
-		System.out.println("(Enter your name.)");
-		yourName = userInput.nextLine();
-		System.out.format("So what %s, you think you're funny or somethin'?", yourName);
-		delay(2);
-		
-		// Canned response block, maybe we can simplify this somehow?
-		System.out.println(" Choose a response: ");
-		System.out.println("A: Yeah. What are you gonna do about it?");
-		System.out.println("B: Nope. *You continue walking along*");
-		System.out.println("C: Uh. Um. Uh. Yeah? Wait no. No I don't!");
-		String reply = userInput.nextLine();
-		while (checkResponse(reply) == false) {
-			System.out.println("Please enter a valid response by typing A, B, or C.");
-			reply = userInput.nextLine();
-		}
-		if (reply.equalsIgnoreCase("A")) {
-			System.out.println("The man is taken aback. \"What the heck you just say!?\"");
-		} else if (reply.equalsIgnoreCase("B")) {
-			System.out.println("The man scoffs. \"You just gonna keep walkin' like that?\"");
-		} else if (reply.equalsIgnoreCase("C")) {
-			System.out.println("The man keeps following you. \"You must think I'm stupid or somethin'.\"");
-		}
-		
-		delay(2);
-		System.out.println("Then, a deep scowl appears on the man's face, almost as if nothing you said mattered.");
-		System.out.println("You see his fist come towards you and you wince");
-		System.out.println("but before you can make sense of the pain, everything turns black.");
-		delay(4);
-		System.out.println("-------------------------------------");
-		System.out.println("Welcome to Big Text Adventure, created by Jeff Su, Ryan Miller, and Jonathan Feehan");
-		System.out.println("This is a text adventure game where you interact, fight, chat, and more all through text. Enjoy!");
-		delay(2);
-		
+	public boolean checkHp() {
+		return mainPlayer.getPlayerHP() > 0;
 	}
 	
-	public static boolean chapterOne() {
-		// CHAPTER 1
-		System.out.println("..");
-		delay(1);
-		System.out.println(".....");
-		delay(2);
-		System.out.println(".........");
-		delay(3);
-		System.out.println("You wake up in a dark alley.");
-		System.out.println("'I will find you, Bazaar Thief', you whisper under your breath.");
-		System.out.println("Conveniently, before you lay three weapons: a staff of magic, a sword of brutality, and a dagger of stealth.");
-		
-		// Pick up a weapon
-		System.out.println("Pick a weapon. This will decide your class.");
-		System.out.println("A: Pick up the staff of magic (become a mage).");
-		System.out.println("B: Pick up the sword of brutality (become a warrior).");
-		System.out.println("C: Pick up the dagger of stealth (become an assassin).");
-		String weaponChoice = userInput.nextLine();
-		while (!checkResponse(weaponChoice)) {
-			System.out.println("Please enter a valid response by typing A, B, or C.");
-			weaponChoice = userInput.nextLine();
-		}
-		
-		// Create Player based on their choice
-		if (weaponChoice.equalsIgnoreCase("A")) {
-			classCreate("Mage");
-		} else if (weaponChoice.equalsIgnoreCase("B")) {
-			classCreate("Warrior");
-		} else if (weaponChoice.equalsIgnoreCase("C")) {
-			classCreate("Assassin");
-		}
-		
-		// Choose path to go down
-		System.out.println("You exit the alley onto a bustling street. Which way will you go?");
-		System.out.println("A: Left.");
-		System.out.println("B: Right.");
-		String pathChoice = userInput.nextLine();
-		while (!checkResponse(pathChoice)) {
-			System.out.println("Please enter a valid response by typing A or B.");
-			pathChoice = userInput.nextLine();
-		}
-		
-		if (pathChoice.equalsIgnoreCase("A")) {
+	public boolean checkForDelimiter(String line, Scanner fileInput, boolean preserve_scanner_position) {
+		if (line.equals("\\stop\\")) {
+			if (preserve_scanner_position) {
+				return true;
+			}
+			line = fileInput.nextLine();
+			if (line.equals("\\path\\")) {
+				char path = 0;
+				line = this.fileInput.nextLine();
+				String firstChoice = userInput.nextLine();
+				while (checkResponse(firstChoice) == false) {
+					System.out.println("Please enter a valid response.");
+					firstChoice = userInput.nextLine();
+				}
+				if (firstChoice.equalsIgnoreCase("A")) {
+					path = '1';
+				}
+				else if (firstChoice.equalsIgnoreCase("B")) {
+					path = '2';
+				}
+				else if (firstChoice.equalsIgnoreCase("C")) {
+					path = '3';
+				}
+				String tempDelimiter = "\\path_" + path;
+				goDownPath(tempDelimiter, line);
+			}
+			if (line.equals("\\skip\\")) {
+				this.skip = true;
+				String skip_value = this.fileInput.nextLine();
+				skipToLine(skip_value);
+			}
+			if (line.equals("\\name\\")) {
+				this.yourName = userInput.nextLine();
+			}
+			if (line.equals("\\battle\\")) {
+				String enemyName = fileInput.next();
+				int level = fileInput.nextInt();
+				int hp = fileInput.nextInt();
+				int attack = fileInput.nextInt();
+				int def = fileInput.nextInt();
+				Enemy enemy = new Enemy(enemyName, hp, level, attack, def);
+				Battle playerVsEnemy = new Battle(mainPlayer, enemy);
+				playerVsEnemy.startBattle();
+			}
+			if (line.equals("\\class\\")) {
+				String weaponChoice = userInput.next();
+				while (!checkResponse(weaponChoice)) {
+					System.out.println("Please enter a valid response by typing A, B, or C.");
+					weaponChoice = userInput.nextLine();
+				}
+				
+				// Create Player based on their choice
+				if (weaponChoice.equalsIgnoreCase("A")) {
+					classCreate("Mage");
+				} else if (weaponChoice.equalsIgnoreCase("B")) {
+					classCreate("Warrior");
+				} else if (weaponChoice.equalsIgnoreCase("C")) {
+					classCreate("Assassin");
+				}
+			}
+			if (line.equals("\\chapter_path\\")) {
+				String choice = userInput.nextLine();
+				while (checkResponse(choice) == false) {
+					System.out.println("Please enter a valid response.");
+					choice = userInput.nextLine();
+				}
+				if (choice.equalsIgnoreCase("A")) {
+					this.chapter_path = "1";
+				}
+				else if (choice.equalsIgnoreCase("B")) {
+					this.chapter_path = "2";
+				}
+				else if (choice.equalsIgnoreCase("C")) {
+					this.chapter_path = "3";
+				}
+			}
+			if (line.equals("\\follow_chapter_path\\")) {
+				String path = "\\path_" + this.chapter_path;
+				goDownPath(path, this.fileInput.nextLine());
+			}
+			if (line.equals("\\set_nest\\")) {
+				int new_level = fileInput.nextInt();
+				this.nest_level = new_level;
+			}
+			if (line.equals("\\check_hp\\")) {
+				if (checkHp()) {
+					this.chapter_path = "1";
+				} else {
+					this.chapter_path = "2";
+				}
+			}
+			if (line.equals("\\give_item\\")) {
+				String itemName = fileInput.next();
+				int damage = fileInput.nextInt();
+				int def = fileInput.nextInt();
+				int val = fileInput.nextInt();
+				int itemClass = fileInput.nextInt();
+				Weapon newItem = new BasicWeapon(itemName, damage, def, val, itemClass);
+				mainPlayer.addToInventory(newItem);
+			}			
+			if (line.equals("\\format_line\\")) {
+				line = fileInput.next();
+				if (line.equals("\\format_1\\")) {
+					System.out.format("So what %s, you think you're funny or somethin'?", yourName);
+				}
+				if (line.equals("\\format_2\\")) {
+					if (this.chapter_path.equals("1")) {
+						System.out.println("You follow the street for a ways, until a Rabid Dog blocks your path");
+					}
+					else {
+						System.out.println("You follow the street for a ways, until a Drunkard blocks your path");
+					}
+				}
+			}
 			return true;
 		}
-		
-		return false;
-	}
-	
-	public static void chapterTwo(boolean pathChoice) {
-		Enemy enemy = null;
-		String enemyName = ""; 
-		
-		if (pathChoice) {
-			enemy = new Enemy("Rabid Dog", 1, 8, 2, 50);
-			enemyName = "rabid dog";
-		} else {
-			enemy = new Enemy("Drunken", 1, 8, 2, 50);
-			enemyName = "drunken man";
-		}
-		
-		System.out.println("You follow the street for a ways, until a " + enemyName + " blocks your path. What will you do?");
-		System.out.println("A: Attack.");
-		System.out.println("B: Run.");
-		String enemyChoice = userInput.nextLine();
-
-		while (!checkResponse(enemyChoice)) {
-			System.out.println("Please enter a valid response by typing A or B.");
-			enemyChoice = userInput.nextLine();
-		}
-		
-		if (enemyChoice.equalsIgnoreCase("A")) {
-			// Handle battle with enemy
-			Battle playerVsEnemy = new Battle(mainPlayer, enemy);
-			playerVsEnemy.startBattle();
-			System.out.println("Phew, that was close!");
-			delay(2);
-			System.out.println("You walk for a few blocks before you stop to get a drink in a bar.");
-		} else {
-			System.out.println("You duck into a nearby alley and flee from the enemy. "
-					+ "In your haste, you become lost and find yourself in 'Ye Olde Drinking Place', a bar?");
+		else {
+			return false;
 		}
 	}
-
 	
 	
-
-	public static void main(String[] args) {
-		thePrologue();
-		boolean pathChoice = chapterOne();
-		System.out.println(pathChoice);
-		chapterTwo(pathChoice);
+	public void readStoryFile(String filePath) {
+		try {
+			this.fileInput =new Scanner (Game.class.getResourceAsStream(filePath));	
+		}catch (Exception e) {
+			System.err.println("Cannot open text file");
+		}
+		while(this.fileInput.hasNext()) {
+			String line = this.fileInput.nextLine();
+			if (!checkForDelimiter(line, this.fileInput, false)) {
+				delay(1);
+				System.out.println(line);
+			}
+		}
+	}
+	
+	public void goDownPath(String tempDelimiter, String line) {
+		this.nest_level++;
+		while (!line.equals("\\path_converge_" + String.valueOf(this.nest_level) + "\\")) {
+			if (line.equals(tempDelimiter + "_" + String.valueOf(this.nest_level) + "\\")) {
+				if (!this.fileInput.hasNext()) {
+					return;
+				}
+				line = this.fileInput.nextLine();
+				checkForDelimiter(line, this.fileInput, false);
+				if (this.skip) {
+					this.skip=false;
+					return;
+				}
+				while (!line.equals("\\end_path\\")) {
+					delay(1);
+					
+					if (!checkForDelimiter(line, this.fileInput, true)) {
+						System.out.println(line);
+					}
+					else {
+						checkForDelimiter(line, this.fileInput, false);
+					}
+					if (this.skip) {
+						this.skip=false;
+						return;
+					}
+					if (!this.fileInput.hasNext()) {
+						return;
+					}
+					line = this.fileInput.nextLine();
+				}
+				if (!this.fileInput.hasNext()) {
+					return;
+				}
+				line=this.fileInput.nextLine();
+			}
+			else {
+				if (this.skip) {
+					this.skip=false;
+					return;
+				}
+				if (!this.fileInput.hasNext()) {
+					return;
+				}
+				line = this.fileInput.nextLine();
+			}
+		}
+		this.nest_level--;
+	}
+	
+	public void skipToLine(String skip_value) {
+		skip_value = "\\" + skip_value + "_location\\";
+		while (!skip_value.equals(fileInput.nextLine())) {
+		}
+		return;
+	}
+	
+	public void play() {
+		readStoryFile("./story_text/prologue.txt");
+		readStoryFile("./story_text/chapter_1.txt");
+		readStoryFile("./story_text/chapter_2.txt");
+		readStoryFile("./story_text/chapter_3.txt");
 	}
 	
 

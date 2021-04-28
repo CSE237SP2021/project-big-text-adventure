@@ -1,0 +1,17 @@
+..
+.....
+.........
+You wake up in a dark alley.
+'I will find you, wretched man', you whisper under your breath.
+Conveniently, before you lay three weapons: a staff of magic, a sword of brutality, and a dagger of stealth.
+Pick a weapon. This will decide your class.
+A: Pick up the staff of magic (become a mage).
+B: Pick up the sword of brutality (become a warrior).
+C: Pick up the dagger of stealth (become an assassin).
+\stop\
+\class\
+You exit the alley onto a bustling street. Which way will you go?
+A: Left.
+B: Right.
+\stop\
+\chapter_path\

@@ -1,4 +1,4 @@
 #!/bin/bash
 
 javac src/main/*.java
-java -cp src main.Game
+java -cp src main.Launcher
