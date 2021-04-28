@@ -3,6 +3,21 @@
 
 This is a text-based adventure game that follows the main character through a perilous journey to find a hidden treasure. The game is played purely in the command line and is entirely text. Fight monsters, acquire loot, and more, in Big Text Adventure.
 
+## Iteration 3
+### What user stories were completed this iteration?
+For this iteration, we rearranged the structure of our repository so that the Game does not have static methods and so that it launches through the Launcher.java file. Additionally, the Game file now reads in the chapters through text files rather than print statements. In terms of the game, we fully implemented battles to allow for weapons, items, spells, and attacks. We finalized the inventory system and made sure to write tests before implementation of the code for this iteration.
+### Is there anything that you implemented but doesn't currently work?
+Everything in the game should work. The Dragon class is not used, but it does not impact the gameplay.
+### What commands are needed to compile and run your code from the command line?
+First, navigate to the correct space:
+```
+cd project-big-text-adventure/big-text-adventure/src
+```
+and then run our script:
+```
+./play.sh
+```
+
 ## Iteration 2
 ### What user stories were completed this iteration?
 For this iteration, we updated many of the existing classes like Game, Player, and Weapon, along with adding a new Enemy class and a class to handle battles. More specifically, we added several new chapters to the Game, allow players to choose a class in the beginning of the story, created enemies for players to fight, and added turn-by-turn combat. We also wrote tests, some of them relatively basic (we plan to add on to the tests as we learn more about writing more detailed tests), for most of the main classes. We're also working on more detailed weapons, enemies, and adding in functionality for spells/items (although it might not be worth it, we'll see).
